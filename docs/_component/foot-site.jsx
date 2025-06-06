@@ -1,4 +1,3 @@
-```jsx
 import React from 'react'
 import {config} from '../_config.js'
 
@@ -41,4 +40,3 @@ export function FootSite() {
     </footer>
   )
 }
-```

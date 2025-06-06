@@ -1,4 +1,3 @@
-```jsx
 import React from 'react'
 
 export function GitHub() {
@@ -21,4 +20,3 @@ export function GitHub() {
     </svg>
   )
 }
-```
