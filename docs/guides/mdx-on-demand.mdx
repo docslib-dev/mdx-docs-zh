@@ -9,62 +9,52 @@ export const info = {
 }
 export const navSortSelf = 6
 
-# MDX on demand
+# 按需使用 MDX
 
-This guide shows how to use `@mdx-js/mdx` to compile MDX on the server and run
-the result on clients. {/* more */}
-Some frameworks, such as Next.js and Remix, make it easy to split work between
-servers and clients.
-Using that it’s possible to for example do most of the work on demand on the
-server instead of at build time, then pass the resulting data to clients, where
-they finally use it.
+本指南展示如何使用 `@mdx-js/mdx` 在服务端编译 MDX 并在客户端运行结果。{/* more */}
+某些框架（如 Next.js 和 Remix）可以轻松实现服务端与客户端的工作分配。
+利用这一点，我们可以在服务端按需完成大部分工作（而非构建阶段），然后将生成的数据传递给客户端最终使用。
 
-This is similar to what people sometimes use [`mdx-bundler`][mdx-bundler] or
-[`next-mdx-remote`][next-mdx-remote] for, but MDX also supports it.
+这类似于人们有时使用 [`mdx-bundler`][mdx-bundler] 或 [`next-mdx-remote`][next-mdx-remote] 的场景，但 MDX 本身也支持此功能。
 
-## Quick example
+## 快速示例
 
-On the server:
+服务端代码：
 
 ```js twoslash path="server.js"
 import {compile} from '@mdx-js/mdx'
 
-const code = String(await compile('# hi', {
+const code = String(await compile('# 你好', {
   outputFormat: 'function-body',
-  /* …otherOptions */
+  /* …其他选项 */
 }))
-// To do: send `code` to the client somehow.
+// 待办：通过某种方式将 `code` 发送至客户端
 ```
 
-On the client:
+客户端代码：
 
 ```js twoslash path="client.js"
 import {run} from '@mdx-js/mdx'
 import * as runtime from 'react/jsx-runtime'
 
-const code = '' // To do: get `code` from server somehow.
+const code = '' // 待办：通过某种方式从服务端获取 `code`
 
 const {default: Content} = await run(code, {...runtime, baseUrl: import.meta.url})
 ```
 
-`Content` is now an `MDXContent` component that you can use like normal in your
-framework (see [§ Using MDX][use]).
+现在 `Content` 是一个 `MDXContent` 组件，你可以像常规组件一样在框架中使用（参见 [§ 使用 MDX][use]）。
 
-More information is available in the API docs of `@mdx-js/mdx` for
-[`compile`][compile] and [`run`][run].
-For other use cases, you can also use [`evaluate`][eval], which both compiles
-and runs in one.
+更多信息可查阅 `@mdx-js/mdx` 的 API 文档：[`compile`][compile] 和 [`run`][run]。
+对于其他用例，你也可以使用 [`evaluate`][eval] 方法，该方法集编译与运行为一体。
 
 <Note type="info">
-  **Note**: MDX is not a bundler (esbuild, webpack, and Rollup are bundlers):
-  you can’t import other code from the server within the string of MDX and get a
-  nicely minified bundle out or so.
+  **注意**：MDX 不是打包工具（esbuild、webpack 和 Rollup 才是打包工具）：
+  你不能从服务端字符串形式的 MDX 中导入其他代码，并期望获得经过良好压缩的打包结果。
 </Note>
 
-## Next.js example
+## Next.js 示例
 
-Some frameworks let you write the server and client code in one file, such as
-Next.
+某些框架（如 Next.js）允许在单个文件中编写服务端和客户端代码。
 
 ```js twoslash path="pages/hello.js"
 /**
@@ -99,9 +89,9 @@ export default function Page({code}) {
 
 export async function getStaticProps() {
   const code = String(
-    await compile('# hi', {
+    await compile('# 你好', {
       outputFormat: 'function-body'
-      /* …otherOptions */
+      /* …其他选项 */
     })
   )
   return {props: {code}}

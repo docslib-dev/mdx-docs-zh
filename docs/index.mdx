@@ -1,3 +1,4 @@
+```javascript
 import {Chart} from './_component/snowfall.jsx'
 
 export {Home as default} from './_component/home.jsx'
@@ -13,7 +14,7 @@ export const info = {
     "@type": "SoftwareApplication",
     "additionalType": "ComputerLanguage",
     "applicationCategory": "DeveloperApplication",
-    "description": "an authorable format for writing JSX in markdown documents",
+    "description": "一种可在Markdown文档中编写JSX的可创作格式",
     "name": "MDX",
     "offers": {
       "@type": "Offer",
@@ -32,63 +33,60 @@ export const info = {
   }
 }
 export const year = 2023
+```
 
 {/* lint disable heading-style */}
 
-Markdown for the\
-**component era**
+组件时代的\
+**Markdown**
 =================
 
-MDX lets you use JSX in your markdown content.
-You can import components, such as interactive charts or alerts, and embed them
-within your content.
-This makes writing long-form content with components a blast. {/* more */}
-🚀
-[Continue reading »][what]
+MDX 允许您在 Markdown 内容中使用 JSX。  
+您可以导入组件（例如交互式图表或警告框）并将其嵌入内容中，  
+这让编写包含组件的长文变得轻松愉快。 {/* more */}
+🚀  
+[继续阅读 »][what]
 
 <div className="card big">
-  ## New: MDX 3!
+  ## 新版发布：MDX 3！
 
-  A small major this time, nothing big, which is also nice sometimes!
-  This mainly drops support for old Node (use 16 or later), adds modern ES2024
-  support in MDX, supports `await` in MDX (if your framework does too), and
-  removes several deprecated options.
+  这次是个小型主版本更新，没有重大改动——有时这样也不错！  
+  主要移除了对旧版 Node 的支持（请使用 16 或更高版本），  
+  在 MDX 中添加了现代 ES2024 支持，支持 MDX 中的 `await`（如果您的框架也支持），  
+  并移除了多个已弃用的配置项。
 
-  [Continue reading »][v3]
+  [继续阅读 »][v3]
 </div>
 
-## What does MDX do?
+## MDX 能做什么？
 
 <div className="big-columns">
   <div>
-    You write markdown with embedded components through JSX:
+    您可以通过 JSX 在 Markdown 中嵌入组件：
 
     ```mdx path="example.mdx"
     import {Chart} from './snowfall.js'
     export const year = 2023
 
-    # Last year’s snowfall
+    # 去年的降雪量
 
-    In {year}, the snowfall was above average.
-    It was followed by a warm spring which caused
-    flood conditions in many of the nearby rivers.
+    {year} 年的降雪量高于平均水平。  
+    随后温暖的春季导致许多附近河流出现洪涝状况。
 
     <Chart color="#fcb32c" year={year} />
     ```
   </div>
 
   <div>
-    It gets compiled to JavaScript that you can use in any framework that
-    supports JSX:
+    它会编译成 JavaScript，可在任何支持 JSX 的框架中使用：
 
     {/* lint disable no-multiple-toplevel-headings */}
 
     <div className="home-preview">
-      # Last year’s snowfall
+      # 去年的降雪量
 
-      In {year}, the snowfall was above average.
-      It was followed by a warm spring which caused flood conditions in many of
-      the nearby rivers.
+      {year} 年的降雪量高于平均水平。  
+      随后温暖的春季导致许多附近河流出现洪涝状况。
 
       <Chart color="#fcb32c" year={year} />
     </div>
@@ -97,36 +95,30 @@ This makes writing long-form content with components a blast. {/* more */}
   </div>
 </div>
 
-We made an interactive playground where you can try MDX out and see what it
-turns into.
-[Play »][playground]
+我们制作了交互式演练场，您可以体验 MDX 并查看转换结果。  
+[立即体验 »][playground]
 
-## Get started
+## 快速开始
 
-There are integrations for most bundlers, frameworks, and editors.
-Whether you build with Docusaurus, Next.js, or Vite.
-You prefer Rollup, esbuild, or webpack.
-You’re using React, Preact, or Vue.
-[Get started »][getting-started]
+我们为大多数打包工具、框架和编辑器提供了集成方案。  
+无论您使用 Docusaurus、Next.js 还是 Vite 构建，  
+偏好 Rollup、esbuild 还是 webpack，  
+正在使用 React、Preact 还是 Vue。  
+[开始使用 »][getting-started]
 
-## MDX in short
+## MDX 核心优势
 
 <div className="emoji-list">
-  * ❤️ **Powerful**: MDX blends markdown and JSX syntax to fit perfectly in
-    JSX-based projects
-  * 💻 **Everything is a component**: Use existing components in your
-    MDX and import other MDX files as components
-  * 🔧 **Customizable**: Decide which component is rendered for each markdown
-    construct (`{h1: MyHeading}`)
-  * 📚 **Markdown-based**: The simplicity and elegance of markdown remains,
-    you use JSX only when you want to
-  * 🔥 **Blazingly blazing fast**: MDX has no runtime, all compilation occurs
-    during the build stage
+  * ❤️ **强大**：MDX 融合 Markdown 与 JSX 语法，完美契合基于 JSX 的项目  
+  * 💻 **万物皆组件**：在 MDX 中使用现有组件，或将其他 MDX 文件作为组件导入  
+  * 🔧 **可定制**：自由决定每个 Markdown 结构对应的渲染组件（`{h1: MyHeading}`）  
+  * 📚 **基于 Markdown**：保留 Markdown 的简洁优雅，仅在需要时使用 JSX  
+  * 🔥 **极速体验**：MDX 没有运行时，所有编译都在构建阶段完成  
 </div>
 
-> lol mdx is so good
->
-> — **@dan\_abramov**
+> MDX 简直太棒了  
+>  
+> —— **@dan\_abramov**
 
 [getting-started]: /docs/getting-started/
 
@@ -135,3 +127,4 @@ You’re using React, Preact, or Vue.
 [v3]: /blog/v3/
 
 [what]: /docs/what-is-mdx/
+```

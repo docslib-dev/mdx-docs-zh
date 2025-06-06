@@ -8,55 +8,50 @@ export const info = {
 }
 
 <Note type="info">
-  **Note**: Info on how to migrate is available in our
-  [Version 3 migration guide][migrating].
+  **注意**：迁移指南请参阅我们的 [版本3迁移文档][migrating]。
 </Note>
 
 # MDX 3
 
-Version 3 already!
-This major version contains a couple small changes.
-For most folks, updating Node.js and plugins is all that’s needed!
+版本3来了！
+这个主要版本包含了一些小改动。
+对大多数用户而言，只需更新Node.js和插件即可！
 
 {/* more */}
 
-## Contents
+## 目录
 
-* [Breaking changes](#breaking-changes)
-* [Improvements to the MDX format](#improvements-to-the-mdx-format)
-  * [Adjacent block JSX and expressions in MDX](#adjacent-block-jsx-and-expressions-in-mdx)
-  * [Await in MDX](#await-in-mdx)
-  * [ES2024 in MDX](#es2024-in-mdx)
-* [Miscellaneous](#miscellaneous)
-* [Thanks](#thanks)
+* [重大变更](#breaking-changes)
+* [MDX格式改进](#improvements-to-the-mdx-format)
+  * [MDX中相邻的块级JSX与表达式](#adjacent-block-jsx-and-expressions-in-mdx)
+  * [MDX中的await语法](#await-in-mdx)
+  * [MDX支持ES2024](#es2024-in-mdx)
+* [其他改进](#miscellaneous)
+* [致谢](#thanks)
 
-## Breaking changes
+## 重大变更
 
-The main breaking change is that Node.js 16 is now the minimum supported
-version.
+最主要的变更是现在最低支持Node.js 16版本。
 
-Across the ecosystem there were several small internal breaking changes.
-Everything’s released already.
-You can update all plugins now.
-If you ran into problems before, it should work now.
+在整个生态系统中存在一些内部的小型破坏性变更。
+所有内容均已发布。
+您现在可以更新所有插件。
+如果您之前遇到过问题，现在应该可以正常使用了。
 
-We also removed some infrequently used deprecated APIs.
-You’re likely fine but gloss over the [v3 migration guide][migrating] if you
-get errors.
+我们还移除了一些较少使用的废弃API。
+您可能不受影响，但如果遇到错误，请查阅[v3迁移指南][migrating]。
 
-Important to note when you use your lesser-known but powerful `evaluate`, `run`,
-or `outputFormat: 'function-body'` APIs, please pass the `baseUrl` option.
-That makes sure `import.meta.url`, `import`, and `export` work.
-You’ll get a runtime error when those features are used otherwise.
+重要提示：当您使用较为冷门但强大的`evaluate`、`run`或`outputFormat: 'function-body'`等API时，请传递`baseUrl`选项。
+这能确保`import.meta.url`、`import`和`export`正常工作。
+否则在使用这些功能时会触发运行时错误。
 
-## Improvements to the MDX format
+## MDX格式改进
 
-There’s also a few small improvements to the MDX format, some of which
-technically breaking.
+MDX格式也进行了一些小改进，其中部分改动在技术上是破坏性的。
 
-### Adjacent block JSX and expressions in MDX
+### MDX中相邻的块级JSX与表达式
 
-We now accept block expressions right next to block JSX tags:
+现在支持块级表达式紧邻块级JSX标签：
 
 ```mdx chrome=no
 <style>{`
@@ -68,60 +63,55 @@ We now accept block expressions right next to block JSX tags:
 `}</style>
 ```
 
-Previously, there was a syntax error, and you had to add a newline between the
-angle brackets and the braces.
+此前这会引发语法错误，您必须在尖括号和花括号之间添加换行符。
 
-### Await in MDX
+### MDX中的await语法
 
-We now accept `await` syntax:
+现在支持`await`语法：
 
 ```mdx
 {await Promise.resolve(42)}
 ```
 
-Most frameworks don’t support promises.
-Whether this works depends on that.
+多数框架不支持Promise。
+实际效果取决于框架实现。
 
-Previously, there was a runtime error that `await` was used in a context where
-it wasn’t allowed.
+此前会报运行时错误，提示在不允许的上下文中使用了`await`。
 
-### ES2024 in MDX
+### MDX支持ES2024
 
-You can now use modern JavaScript syntax in MDX.
-Acorn, used internally, is now instructed to use ES2024.
+现在可以在MDX中使用现代JavaScript语法。
+内部使用的Acorn解析器现已配置为支持ES2024标准。
 
-## Miscellaneous
+## 其他改进
 
-I refactored all the docs.
-Updating every use example where needed.
-I also wrote a guide on how to inject components from anywhere:
-[§ Injecting components][injecting-components].
+我重构了所有文档。
+更新了所有需要更新的使用示例。
+还编写了关于如何从任意位置注入组件的指南：
+[§ 组件注入][injecting-components]。
 
-The site is a lot faster.
-There’s a nice improved playground too: [try it out! »][playground].
-We also have proper syntax highlighting here, thanks to
-[`wooorm/markdown-tm-language`][markdown-tm-language]
-and [`wooorm/starry-night`][starry-night].
+网站性能大幅提升。
+还推出了改进版在线演练场：[立即体验 »][playground]。
+得益于[`wooorm/markdown-tm-language`][markdown-tm-language]
+和[`wooorm/starry-night`][starry-night]项目，
+我们现在拥有完善的语法高亮功能。
 
-The generated JS code is a little cleaner (the JSX pragma comment is removed
-and objects are sorted where needed), it also uses spreads instead of
-`Object.assign`, there’s a `'use strict'` added when needed, and the
-`MDXContent` is exported immediately.
+生成的JS代码更加简洁（移除了JSX编译指示注释并在需要时对对象进行排序），使用扩展运算符替代了`Object.assign`，在需要时添加`'use strict'`，并且直接导出`MDXContent`组件。
 
-## Thanks
+## 致谢
 
-We’d like to say thanks to all our contributors and our happy users.
-Special thanks to
-北雁云依 ([**@BeiyanYunyi**](https://github.com/BeiyanYunyi)),
-Christian Murphy ([**@ChristianMurphy**](https://github.com/ChristianMurphy)),
-JokcyLou ([**@Jokcy**](https://github.com/Jokcy)),
-Maël Nison ([**@arcanis**](https://github.com/arcanis)),
-Andreas Deininger ([**@deining**](https://github.com/deining)),
-Remco Haszing ([**@remcohaszing**](https://github.com/remcohaszing)),
-Sébastien Lorber ([**@slorber**](https://github.com/slorber)),
-Víctor Fernández ([**@victor23k**](https://github.com/victor23k)),
-Titus Wormer ([**@wooorm**](https://github.com/wooorm)),
-and anyone we may have forgotten.
+我们要感谢所有贡献者和满意的用户。
+特别感谢：
+北雁云依 ([**@BeiyanYunyi**](https://github.com/BeiyanYunyi))、
+Christian Murphy ([**@ChristianMurphy**](https://github.com/ChristianMurphy))、
+JokcyLou ([**@Jokcy**](https://github.com/Jokcy))、
+Maël Nison ([**@arcanis**](https://github.com/arcanis))、
+Andreas Deininger ([**@deining**](https://github.com/deining))、
+Remco Haszing ([**@remcohaszing**](https://github.com/remcohaszing))、
+Sébastien Lorber ([**@slorber**](https://github.com/slorber))、
+Víctor Fernández ([**@victor23k**](https://github.com/victor23k))、
+Titus Wormer ([**@wooorm**](https://github.com/wooorm))，
+以及我们可能遗漏的其他贡献者。
 
 [injecting-components]: /guides/injecting-components/
 

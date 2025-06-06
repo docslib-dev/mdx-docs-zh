@@ -10,48 +10,39 @@ export const info = {
 export const navExclude = true
 
 <Note type="legacy">
-  **Note**: This is an old migration guide.
-  See [§ Migrating from v1 to v2](/migrating/v2/).
-  The below is kept as is for historical purposes.
+  **注意**：这是一份旧版迁移指南。
+  请参阅[§ 从v1迁移至v2](/migrating/v2/)。
+  以下内容为历史记录保留原貌。
 </Note>
 
-# Migrating from v0 to v1
+# 从v0迁移至v1
 
-Unfortunately, we’ve had to introduce a few breaking changes, so we’ve written a
-migration guide.
-In order to ensure as seamless of an upgrade as possible we plan on supporting
-v0 for the next 12 months so there’s not a huge rush to update (though we’d
-love for you to ASAP) 📆.
+很遗憾，我们不得不引入一些破坏性变更，因此编写了这份迁移指南。
+为确保升级过程尽可能平稳，我们计划在未来12个月内继续支持v0版本，所以您无需急于立即更新（当然我们仍希望您尽快升级）📆。
 
-## ⚠️ Breaking changes
+## ⚠️ 破坏性变更
 
-* [🚨 `@mdx-js/tag` is replaced by `@mdx-js/react` and an `mdx`
-  pragma](#pragma) 🚨
-* [MDXProvider now merges component contexts when nested](#mdxprovider)
-* [React support now requires `>= 16.8` in `@mdx-js/react`](#react)
+* [🚨 `@mdx-js/tag` 已被 `@mdx-js/react` 和 `mdx` 编译指示取代](#pragma) 🚨
+* [嵌套时 MDXProvider 现在会合并组件上下文](#mdxprovider)
+* [在 `@mdx-js/react` 中 React 支持现在要求 `>= 16.8` 版本](#react)
 
-## Pragma
+## 编译指示
 
-For v1 you need to remove `@mdx-js/tag` and replace it with `@mdx-js/react`:
+v1版本需要移除 `@mdx-js/tag` 并替换为 `@mdx-js/react`：
 
 ```sh
 yarn remove @mdx-js/tag
 yarn add @mdx-js/react
 ```
 
-### What’s different?
+### 有何不同？
 
-The MDXTag implementation has been removed with a custom pragma implementation
-inspired by
-[Emotion](https://emotion.sh/docs/css-prop#jsx-pragma).
-This ensures that transpiled JSX is more readable and that JSX blocks use the
-same component as its markdown counterpart.
-It also allows MDXProvider to provide global component scope like a `Youtube`
-component.
+MDXTag实现已被移除，取而代之的是受[Emotion](https://emotion.sh/docs/css-prop#jsx-pragma)启发的自定义编译指示实现。
+这确保转译后的JSX更具可读性，且JSX块使用与其Markdown对应部分相同的组件。
+同时也允许MDXProvider像`Youtube`组件那样提供全局组件作用域。
 
-The pragma implementation will also cause JSX HTML elements to be rendered with
-the component mapping passed to MDXProvider.
-So, the following will result in two identically rendered `h1`s:
+该编译指示实现还会使JSX HTML元素通过MDXProvider传递的组件映射进行渲染。
+因此，以下两个示例将渲染出完全相同的`h1`标题：
 
 ```mdx
 # Hello, world!
@@ -59,15 +50,12 @@ So, the following will result in two identically rendered `h1`s:
 <h1>Hello, world!</h1>
 ```
 
-[See the blog post for further reading](/blog/custom-pragma/)
+[详见博客文章](/blog/custom-pragma/)
 
 ## MDXProvider
 
-This shouldn’t affect most usecases, however if you’re nesting component
-contexts and rely on them not being merged you will have to use the functional
-form which allows you to customize the merge.
-By ignoring outer context components and returning a new component mapping, you
-will restore the old behavior:
+这不会影响大多数使用场景，但如果您嵌套了组件上下文并依赖它们不被合并的特性，则需要使用函数形式来自定义合并行为。
+通过忽略外部上下文组件并返回新的组件映射，您可以恢复旧版行为：
 
 ```tsx
 <MDXProvider components={components}>
@@ -79,6 +67,5 @@ will restore the old behavior:
 
 ## React
 
-Before upgrading to `@mdx-js/mdx@1`, update your website/application to
-`react@16.8 react-dom@16.8` and ensure it works as expected.
-Then upgrade to v1.
+在升级到`@mdx-js/mdx@1`之前，请先将您的网站/应用更新至`react@16.8 react-dom@16.8`并确保其正常运行。
+然后再升级至v1版本。

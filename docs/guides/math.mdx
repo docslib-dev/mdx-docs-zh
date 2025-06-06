@@ -2,33 +2,29 @@ import {Note} from '../_component/note.jsx'
 
 export const info = {
   author: [
-    {github: 'wooorm', name: 'Titus Wormer'}
+    {github: 'wooorm', name: '提图斯·沃默'}
   ],
   modified: new Date('2025-01-27'),
   published: new Date('2021-10-06')
 }
 export const navSortSelf = 3
 
-# Math
+# 数学公式
 
-This guide explores how to support math (LaTeX) in MDX. {/* more */}
-MDX supports standard markdown syntax ([CommonMark][]).
-That means math is not supported by default.
-Math can be enabled by using a remark plugin: [`remark-math`][remark-math],
-combined with a rehype plugin: either
-[`rehype-katex`][rehype-katex] (KaTeX) or [`rehype-mathjax`][rehype-mathjax]
-(MathJax).
-Like other remark and rehype plugins, they can be passed in [`remarkPlugins`
-and `rehypePlugins`, respectively, in `ProcessorOptions`][processor-options].
-More info on plugins is available in [§ Extending MDX][extend]
+本指南探讨如何在MDX中支持数学公式（LaTeX）。 {/* more */}
+MDX支持标准Markdown语法（[CommonMark][]），这意味着默认不支持数学公式。
+可以通过使用remark插件[`remark-math`][remark-math]，
+配合rehype插件[`rehype-katex`][rehype-katex]（KaTeX）或[`rehype-mathjax`][rehype-mathjax]（MathJax）来启用数学公式支持。
+与其他remark和rehype插件类似，它们可以通过[`ProcessorOptions`中的`remarkPlugins`和`rehypePlugins`参数][processor-options]传入。
+更多关于插件的信息请参阅[§ 扩展MDX][extend]。
 
-Say we have an MDX file like this:
+假设我们有一个如下所示的MDX文件：
 
 ```mdx path="example.mdx"
 # $$\sqrt{a^2 + b^2}$$
 ```
 
-The above MDX with math can be transformed with the following module:
+上述包含数学公式的MDX可以通过以下模块进行转换：
 
 ```js twoslash path="example.js"
 // @filename: example.js
@@ -50,7 +46,7 @@ console.log(
 ```
 
 <details>
-  <summary>Expand equivalent JSX</summary>
+  <summary>展开等效JSX</summary>
 
   ```jsx path="output.jsx"
   <>
@@ -69,25 +65,22 @@ console.log(
 </details>
 
 <Note type="important">
-  **Important**: if you chose `rehype-katex`, you should also use `katex.css`
-  somewhere on the page to style math properly.
-  At the time of writing, the last version is:
+  **重要提示**：如果选择使用`rehype-katex`，还需要在页面某处引入`katex.css`以正确渲染数学公式样式。
+  截至本文撰写时，最新版本为：
 
   ```html
-  <!-- Get the latest one from: https://katex.org/docs/browser -->
+  <!-- 最新版本请访问：https://katex.org/docs/browser -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
   ```
 
-  To get the latest link to the stylesheet, go to [`katex docs`][katex-browser].
+  获取最新样式表链接，请访问[`katex文档`][katex-browser]。
 
-  {/* to do: once in a while, get the latest. */}
+  {/* 待办：定期检查更新 */}
 </Note>
 
 <Note type="info">
-  **Note:** see also
-  [`remark-mdx-math-enhanced`](https://github.com/goodproblems/remark-mdx-math-enhanced),
-  which you can use to support JavaScript expressions inside of math (such as to
-  access properties or to make calculations)
+  **注意**：另请参阅[`remark-mdx-math-enhanced`](https://github.com/goodproblems/remark-mdx-math-enhanced)，
+  该插件支持在数学公式中使用JavaScript表达式（例如访问属性或进行计算）
 </Note>
 
 [commonmark]: https://spec.commonmark.org/current/

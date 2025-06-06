@@ -7,49 +7,46 @@ export const info = {
 }
 export const navSortSelf = 1
 
-# GitHub flavored markdown (GFM)
+# GitHub 风味 Markdown (GFM)
 
-This guide explores how to support GFM features such as autolink literals,
-footnotes, strikethrough, tables, and task lists. {/* more */}
-MDX supports standard markdown syntax ([CommonMark][]).
-That means [GitHub flavored markdown (GFM)][gfm] extensions are not supported by
-default.
-They can be enabled by using a remark plugin: [`remark-gfm`][remark-gfm].
-That plugin, like all remark plugins, can be passed in [`remarkPlugins` in
-`ProcessorOptions`][processor-options].
-More info on plugins is available in [§ Extending MDX][extend]
+本指南探讨如何支持 GFM 特性，如自动链接字面量、脚注、删除线、表格和任务列表。{/* more */}
+MDX 支持标准 Markdown 语法（[CommonMark][]）。  
+这意味着默认不支持 [GitHub 风味 Markdown (GFM)][gfm] 扩展功能。  
+可通过使用 remark 插件 [`remark-gfm`][remark-gfm] 来启用这些功能。  
+该插件与所有 remark 插件一样，可通过 [`ProcessorOptions` 中的 `remarkPlugins`][processor-options] 传入。  
+更多插件信息请参阅 [§ 扩展 MDX][extend]
 
-Say we have an MDX file like this:
+假设我们有一个如下所示的 MDX 文件：
 
 ```mdx path="example.mdx"
 # GFM
 
-## Autolink literals
+## 自动链接字面量
 
-www.example.com, https://example.com, and contact@example.com.
+www.example.com, https://example.com, 以及 contact@example.com.
 
-## Footnote
+## 脚注
 
-A note[^1]
+一条注释[^1]
 
-[^1]: Big note.
+[^1]: 重要注释。
 
-## Strikethrough
+## 删除线
 
-~one~ or ~~two~~ tildes.
+~一条~ 或 ~~两条~~ 波浪线。
 
-## Table
+## 表格
 
 | a | b  |  c |  d  |
 | - | :- | -: | :-: |
 
-## Tasklist
+## 任务列表
 
-* [ ] to do
-* [x] done
+* [ ] 待办
+* [x] 已完成
 ```
 
-The above MDX with GFM can be transformed with the following module:
+上述带有 GFM 的 MDX 可通过以下模块转换：
 
 ```js twoslash path="example.js"
 // @filename: example.js
@@ -67,20 +64,20 @@ console.log(
 ```
 
 <details>
-  <summary>Expand equivalent JSX</summary>
+  <summary>展开等效 JSX</summary>
 
   ```jsx path="output.jsx"
   <>
     <h1>GFM</h1>
-    <h2>Autolink literals</h2>
+    <h2>自动链接字面量</h2>
     <p>
       <a href="http://www.example.com">www.example.com</a>,{' '}
-      <a href="https://example.com">https://example.com</a>, and{' '}
+      <a href="https://example.com">https://example.com</a>, 以及{' '}
       <a href="mailto:contact@example.com">contact@example.com</a>.
     </p>
-    <h2>Footnote</h2>
+    <h2>脚注</h2>
     <p>
-      A note
+      一条注释
       <sup>
         <a
           href="#user-content-fn-1"
@@ -92,11 +89,11 @@ console.log(
         </a>
       </sup>
     </p>
-    <h2>Strikethrough</h2>
+    <h2>删除线</h2>
     <p>
-      <del>one</del> or <del>two</del> tildes.
+      <del>一条</del> 或 <del>两条</del> 波浪线。
     </p>
-    <h2>Table</h2>
+    <h2>表格</h2>
     <table>
       <thead>
         <tr>
@@ -107,28 +104,28 @@ console.log(
         </tr>
       </thead>
     </table>
-    <h2>Tasklist</h2>
+    <h2>任务列表</h2>
     <ul className="contains-task-list">
       <li className="task-list-item">
-        <input type="checkbox" disabled /> to do
+        <input type="checkbox" disabled /> 待办
       </li>
       <li className="task-list-item">
         <input type="checkbox" disabled checked />
-        done
+        已完成
       </li>
     </ul>
     <section data-footnotes="true" className="footnotes">
       <h2 className="sr-only" id="footnote-label">
-        Footnotes
+        脚注
       </h2>
       <ol>
         <li id="user-content-fn-1">
           <p>
-            Big note.{' '}
+            重要注释.{' '}
             <a
               href="#user-content-fnref-1"
               data-footnote-backref=""
-              aria-label="Back to reference 1"
+              aria-label="返回引用 1"
               className="data-footnote-backref"
             >
               ↩

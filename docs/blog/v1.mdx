@@ -9,134 +9,118 @@ export const info = {
 }
 
 <Note type="legacy">
-  **Note**: This is an old blog post.
-  [ZEIT is now Vercel](https://rauchg.com/2020/vercel).
-  An “`@mdx` pragma” is no longer needed.
-  The below is kept as is for historical purposes.
+  **注意**：这是一篇旧博客文章。
+  [ZEIT 现已更名为 Vercel](https://rauchg.com/2020/vercel)。
+  不再需要“`@mdx` 编译指示”。
+  以下内容为历史记录保留原貌。
 </Note>
 
-# MDX goes stable
+# MDX 正式进入稳定阶段
 
-It’s been a year and a half since the first MDX commit and a year since MDX was
-first announced at ZEIT Day.
-MDX is a radical paradigm shift in how to write immersive content using
-components.
-It’s an open, [authorable format](https://johno.com/authorable-format) that
-makes it *fun* to write again.
+距离 MDX 首次提交已过去一年半，距离在 ZEIT Day 上首次发布也已一年。
+MDX 彻底改变了使用组件编写沉浸式内容的范式。
+这是一个开放的[可创作格式](https://johno.com/authorable-format)，
+让写作重新变得*有趣*。
 
 {/* more */}
 
-Since announcing MDX we’ve been working on numerous bug fixes, new features,
-better parsing, and integration tests.
-Now, we think it’s ready.
-**We’re happy to finally release v1!**
+自 MDX 发布以来，我们持续修复了大量错误、新增功能、优化解析器并完善集成测试。
+现在，我们认为它已准备就绪。
+**我们很高兴终于发布 v1 版本！**
 
-## 🎉 What’s new?
+## 🎉 有哪些新特性？
 
-Here’s a rough breakdown on what we’ve been working on:
+以下是我们的主要工作成果概览：
 
-### Parsing
+### 解析器
 
-MDX document parsing is significantly improved.
-We won’t get into the nitty gritty here, but we’ve seen how MDX is used in
-real-world projects, integrated the edge cases we came across into our test
-suite, and now handle JSX, imports, and exports much more intuitively.
-Please open an issue if you find a case we haven’t covered!😸
+MDX 文档解析能力显著提升。
+我们不会在此深入技术细节，但通过观察实际项目中的使用情况，
+已将遇到的边缘案例整合进测试套件，
+现在对 JSX、导入和导出的处理更加符合直觉。
+如发现未覆盖的案例，请提交 issue！😸
 
 ### remark-mdx
 
-`remark-mdx` is the syntactic extension for MDX in remark.
-It provides the parsing functionality for MDX as a
-*[remark](https://github.com/remarkjs/remark) plugin*.
-That sounds a bit meta.
-What it means is that before we had the syntax parsing bits *in* the library
-(unusable from the outside), and now it’s externalized (usable from the
-outside).
-This is useful if you want to inspect or transform MDX documents.
-For example, it allows tools like prettier to use the exact same parser used by
-MDX core.
-Or you could use `remark-mdx` in combination with
-[remark-lint](https://github.com/remarkjs/remark-lint) to check your MDX.
+`remark-mdx` 是 remark 中为 MDX 提供的语法扩展。
+它以*[remark](https://github.com/remarkjs/remark)插件*形式提供 MDX 解析功能。
+听起来有些抽象。
+这意味着原先内置于库中的语法解析逻辑（外部无法调用），
+现在已被外部化（可供外部使用）。
+这对需要检查或转换 MDX 文档的场景非常有用。
+例如，prettier 等工具现在可以使用与 MDX 核心完全相同的解析器。
+你也可以结合 [remark-lint](https://github.com/remarkjs/remark-lint) 
+使用 `remark-mdx` 来校验 MDX 文件。
 
-### Custom pragma
+### 自定义编译指示
 
-With v1 we’ve moved away from using `MDXTag` and are using a custom pragma which
-wraps `React.createElement`.
-We decided to update this approach so the JSX output is more legible,
-lighterweight, and more customizable.
-**This means MDX can be used with any React, Vue, Preact, or any other library
-with JSX support**.
+v1 版本中我们弃用了 `MDXTag`，改用封装 `React.createElement` 的自定义编译指示。
+这一调整使 JSX 输出更易读、更轻量且更可定制。
+**这意味着 MDX 现在可兼容任何支持 JSX 的库，
+包括 React、Vue、Preact 等**。
 
-Special thanks to [@christopherbiscardi][christopherbiscardi]
-for implementing this feature.
+特别感谢 [@christopherbiscardi][christopherbiscardi] 实现此功能。
 
-[Read the blog post](/blog/custom-pragma/)
+[阅读博客文章](/blog/custom-pragma/)
 
-### 📚 Documentation
+### 📚 文档
 
-**Good libraries need great docs**, so we’ve been working on adding content and
-improving the overall documentation website experience.
+**优秀的库需要出色的文档**，因此我们持续扩充内容并优化文档网站整体体验。
 
-* Search (thanks Algolia)
-* [Guides](/guides/)
-* [Automatic deployment via ZEIT][zeit]
-* [Custom Gatsby theme][gatsbyjs]
-* Reorganization of docs for intuitiveness
-* Full page rewrites to improve clarity
+* 搜索功能（感谢 Algolia）
+* [指南](/guides/)
+* [通过 ZEIT 自动部署][zeit]
+* [定制 Gatsby 主题][gatsbyjs]
+* 文档结构重组以提升直观性
+* 全文重写以提高清晰度
 
-Special thanks to [@jxnblk](https://github.com/jxnblks) and
-[@wooorm][wooorm] for their help improving the docs and
-updating the build tooling.
+特别感谢 [@jxnblk](https://github.com/jxnblks) 和 
+[@wooorm][wooorm] 协助改进文档并更新构建工具。
 
-## Breaking changes
+## 重大变更
 
-In order to make some improvements we were forced to introduce a few breaking
-changes.
-**These were the result of real-world production testing and feedback**.
-The community has evolved and we’ve come up with newer, better ideas over the
-last year.
-We have made sure the impact is small and have written a full migration guide.
+为实现某些改进，我们不得不引入一些破坏性变更。
+**这些变更是基于实际生产环境测试和反馈的结果**。
+随着社区发展，我们在过去一年中提出了更新、更好的方案。
+我们已确保影响范围最小，并编写了完整的迁移指南。
 
-* 🚨`@mdx-js/tag` is replaced by `@mdx-js/react` and an `@mdx` pragma
-  — [migration guide](/migrating/v1#pragma)
-* MDXProvider now merges component contexts when nested
-  — [migration guide](/migrating/v1#mdxprovider)
-* React support now requires `>= 16.8` in `@mdx-js/react`
-  — [migration guide](/migrating/v1#react)
+* 🚨`@mdx-js/tag` 替换为 `@mdx-js/react` 和 `@mdx` 编译指示
+  — [迁移指南](/migrating/v1#pragma)
+* MDXProvider 现在会合并嵌套的组件上下文
+  — [迁移指南](/migrating/v1#mdxprovider)
+* `@mdx-js/react` 现在要求 React `>= 16.8`
+  — [迁移指南](/migrating/v1#react)
 
-[Read the full v1 migration guide](/migrating/v1)
+[阅读完整 v1 迁移指南](/migrating/v1)
 
-### Deprecations
+### 弃用项
 
-We only needed to introduce one deprecation.
-The `mdPlugins` and `hastPlugins` options have been renamed `remarkPlugins` and
-`rehypePlugins` respectively.
-For the time being we will issue a warning when the old options are used.
-In v2, the old options will be removed.
+我们仅引入了一项弃用：
+`mdPlugins` 和 `hastPlugins` 选项已分别重命名为 `remarkPlugins` 和 `rehypePlugins`。
+目前使用旧选项时会发出警告。
+v2 版本将彻底移除旧选项。
 
-## 📈 Growth
+## 📈 发展历程
 
-A major release is always a good time to take a step back and reflect on what’s
-been happening in terms of growth and the greater community.
-The ecosystem surrounding MDX has already grown larger than we ever dreamed.
-We’ve also seen projects/products/application we never even imagined.
+重大版本发布总是回顾发展与社区生态的好时机。
+围绕 MDX 的生态系统已远超我们最初的想象。
+我们还见证了许多未曾预见的项目/产品/应用诞生。
 
-### Numbers
+### 数据指标
 
-* **Downloads**: 125,000/week, 2.4M total
-* **Stars**: 6,200
-* **Contributors**: 50
-* **Pull requests**: 281
-* **Commits**: 670
+* **周下载量**：12.5万次，累计240万次
+* **Star 数**：6,200
+* **贡献者**：50人
+* **合并 PR**：281个
+* **提交次数**：670次
 
-The contributor growth is one of the most important aspects here as we have
-numerous community members that are familiar with MDX internals.
-This allows us to continually improve the project and spread the workload
-against an ever growing team of contributors.
+贡献者增长是最重要的指标之一，
+因为现在有许多熟悉 MDX 内部机制的社区成员。
+这使得项目能持续改进，工作负载也由不断壮大的贡献者团队共同承担。
 
-[See the contributor graph](https://github.com/mdx-js/mdx/graphs/contributors?from=2017-12-17\&to=2019-04-11\&type=c)
+[查看贡献者图表](https://github.com/mdx-js/mdx/graphs/contributors?from=2017-12-17\&to=2019-04-11\&type=c)
 
-### Ecosystem
+### 生态系统
 
 * [Prettier](https://prettier.io)
 * [Docz](https://docz.site)
@@ -144,68 +128,63 @@ against an ever growing team of contributors.
 * [Next.js](https://nextjs.org)
 * [Gatsby][gatsbyjs]
 * [AST Explorer](https://astexplorer.net)
-* [Vue support (alpha)](/docs/getting-started/#vue)
+* [Vue 支持(alpha)](/docs/getting-started/#vue)
 * [Demoboard](https://frontarm.com/demoboard/)
-* [Editors](/docs/getting-started/#editor)
+* [编辑器支持](/docs/getting-started/#editor)
 
-## 🛣 Roadmap
+## 🛣 路线图
 
-With v1 released we have a roadmap in place that we’ll continue working towards
-over the next 6 months or so in addition to bug fixes and parsing issues we
-might encounter.
+v1 发布后，我们制定了未来6个月左右的路线图，
+除修复错误和解析问题外，还将推进以下计划：
 
 * MDXs: [#454](https://github.com/mdx-js/mdx/issues/454)
-* Interleaving: [#195](https://github.com/mdx-js/mdx/issues/195)
-* Global shortcodes: [#508](https://github.com/mdx-js/mdx/pull/508)
-* Stable Vue support: [#238](https://github.com/mdx-js/mdx/issues/238)
-* Blocks: MDX WYSIWYG: [blocks/blocks][blocks]
-* MDX playground inspired by AST Explorer: [#220](https://github.com/mdx-js/mdx/issues/220)
-* New splash page: [#444](https://github.com/mdx-js/mdx/issues/444)
-* Showcase page: [#414](https://github.com/mdx-js/mdx/issues/414)
+* 交错内容: [#195](https://github.com/mdx-js/mdx/issues/195)
+* 全局快捷代码: [#508](https://github.com/mdx-js/mdx/pull/508)
+* 稳定的 Vue 支持: [#238](https://github.com/mdx-js/mdx/issues/238)
+* 区块: MDX 可视化编辑器: [blocks/blocks][blocks]
+* 基于 AST Explorer 的 MDX 演练场: [#220](https://github.com/mdx-js/mdx/issues/220)
+* 新版首页: [#444](https://github.com/mdx-js/mdx/issues/444)
+* 案例展示页: [#414](https://github.com/mdx-js/mdx/issues/414)
 
-### Vue support
+### Vue 支持
 
-Supporting Vue is an important goal for MDX and is one of the primary reasons
-we’ve rearchitected MDX to use custom pragma.
-We’re delighted that **we now have an alpha version for Vue working**.
-We’d love it if anyone from the Vue community wants to give it a try and provide
-feedback.
+支持 Vue 是 MDX 的重要目标，
+也是我们重构 MDX 采用自定义编译指示的主要原因之一。
+我们很高兴**现已推出 Vue 的 alpha 版本**。
+欢迎 Vue 社区成员试用并提供反馈。
 
-[See the Vue example](https://github.com/mdx-js/mdx/tree/36cb41b/examples/vue)
+[查看 Vue 示例](https://github.com/mdx-js/mdx/tree/36cb41b/examples/vue)
 
-### Blocks project
+### Blocks 项目
 
-One of the key missing aspects of authoring MDX documents is the editing
-experience.
-Currently, there isn’t an approachable way to write MDX unless you enjoy working
-in a text editor and writing raw Markdown/code.
-We’d like to solve that and have begun work on an MDX “blocks editor” that’s a
-**content-focused WYSIWYG**.
-Not to mention, we’ll be doing all that we can to make sure the editor is as
-accessible as it can be from the beginning.
+当前 MDX 创作体验中缺失的关键环节是编辑环境。
+除非你喜欢在文本编辑器中直接编写原始 Markdown/代码，
+否则目前还没有友好的 MDX 编写方式。
+我们希望通过开发 MDX "区块编辑器" 来解决这个问题，
+打造**以内容为核心的可视化编辑器**。
+同时我们将全力确保编辑器从一开始就具备最佳可访问性。
 
-When we have a beta ready we will be open sourcing it and announcing, so stay
-tuned.
+待 beta 版本准备就绪后，我们将开源并正式发布，敬请期待。
 
-[Check out the Blocks project][blocks]
+[了解 Blocks 项目][blocks]
 
-## unified collective
+## unified 集体
 
-MDX is part of the unified collective, which is an open source ecosystem for
-dealing with many sources of content.
-unified projects are used all over the web, and it would never be possible
-without financial support from our fine sponsors.
+MDX 属于 unified 集体的一部分，
+这是一个处理多种内容来源的开源生态系统。
+unified 项目被广泛应用于网络各处，
+这一切离不开优秀赞助商们的资金支持。
 
 * [ZEIT][] 🥇
 * [Gatsby][gatsbyjs] 🥇
 * [Holloway](https://www.holloway.com) 🥉
-* [Backers](https://opencollective.com/unified#budget) 🏆
-* [You?](https://opencollective.com/unified)👤
+* [支持者](https://opencollective.com/unified#budget) 🏆
+* [你愿意加入吗？](https://opencollective.com/unified)👤
 
-## 🙏 Thanks
+## 🙏 致谢
 
-We’d like to say thanks to all our contributors and our happy users.
-Special thanks to
+我们要感谢所有贡献者和用户。
+特别致谢
 [@wooorm][wooorm],
 [@silvenon](https://github.com/silvenon),
 [@timneutkens](https://github.com/timneutkens),
@@ -238,7 +217,7 @@ Special thanks to
 [@hugmanrique](https://github.com/hugmanrique),
 [@johnsherrard](https://github.com/johnsherrard),
 [@sw-yx](https://github.com/sw-yx),
-and anyone we may have forgotten.
+以及可能遗漏的其他贡献者。
 
 [blocks]: https://github.com/blocks/blocks
 

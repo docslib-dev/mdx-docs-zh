@@ -4,11 +4,11 @@
 
 /**
  * @typedef Properties
- *   Properties.
+ *   属性类型定义。
  * @property {string} color
- *   Color.
+ *   颜色值。
  * @property {number} year
- *   Year.
+ *   年份。
  */
 
 import React from 'react'
@@ -17,9 +17,9 @@ const data = [6, 5, 2, 4.5, 1.5, 2.5, 2, 2.5, 1.5, 2.5, 3.5, 7]
 
 /**
  * @param {Readonly<Properties>} properties
- *   Properties.
+ *   组件属性。
  * @returns {ReactNode}
- *   Element.
+ *   返回的React元素。
  */
 export function Chart(properties) {
   return (

@@ -1,3 +1,4 @@
+```jsx
 import React from 'react'
 import {config} from '../_config.js'
 
@@ -11,28 +12,28 @@ export function FootSite() {
         >
           <div>
             <small>
-              MDX is made with ❤️ in Amsterdam, Boise, and around the 🌏
+              MDX诞生于阿姆斯特丹、博伊西和全球各地 ❤️
             </small>
             <br />
-            <small>This site does not track you.</small>
+            <small>本网站不会追踪您的行为</small>
             <br />
-            <small>MIT © 2017-{new Date().getFullYear()}</small>
+            <small>MIT 协议 © 2017-{new Date().getFullYear()}</small>
           </div>
           <div style={{marginLeft: 'auto', textAlign: 'right'}}>
             <small>
-              Project on <a href={config.gh.href}>GitHub</a>
+              项目托管于 <a href={config.gh.href}>GitHub</a>
             </small>
             <br />
             <small>
-              Site on <a href={new URL('docs/', config.ghTree).href}>GitHub</a>
+              文档托管于 <a href={new URL('docs/', config.ghTree).href}>GitHub</a>
             </small>
             <br />
             <small>
-              Updates as <a href="/rss.xml">RSS feed</a>
+              更新订阅 <a href="/rss.xml">RSS源</a>
             </small>
             <br />
             <small>
-              Sponsor on <a href={config.oc.href}>OpenCollective</a>
+              赞助支持 <a href={config.oc.href}>OpenCollective</a>
             </small>
           </div>
         </div>
@@ -40,3 +41,4 @@ export function FootSite() {
     </footer>
   )
 }
+```

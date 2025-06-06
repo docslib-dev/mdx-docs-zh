@@ -9,29 +9,25 @@ export const info = {
 }
 export const navSortSelf = 4
 
-# Syntax highlighting
+# 语法高亮
 
-This guide explores how to apply syntax highlighting to code
-blocks. {/* more */}
-MDX supports standard markdown syntax ([CommonMark][]).
-It does not apply syntax highlighting to code blocks by default.
+本指南探讨如何为代码块应用语法高亮。{/* more */}
+MDX 支持标准 Markdown 语法 ([CommonMark][])。
+默认情况下不会对代码块应用语法高亮。
 
-There are two ways to accomplish syntax highlighting: at compile time or at
-runtime.
-Doing it at compile time means the effort is spent upfront so that readers will
-have a fast experience as no extra code is sent to them (syntax highlighting
-needs a *lot* of code to work).
-Doing it at runtime gives more flexibility by moving the work to the client.
-This can result in a slow experience for readers though.
-It also depends on what framework you use (as in it’s specific to React, Preact,
-Vue, etc.)
+实现语法高亮有两种方式：编译时处理或运行时处理。
+编译时处理意味着预先完成高亮工作，读者将获得更快的体验（因为无需向他们发送额外的语法高亮代码，这类代码通常非常庞大）。
+运行时处理则通过将工作转移到客户端来实现更高灵活性，但可能导致读者体验较慢。
+具体实现还取决于您使用的框架（例如专为 React、Preact、Vue 等设计）。
 
-## Syntax highlighting at compile time
+## 编译时语法高亮
 
-Use for example [`rehype-starry-night`][rehype-starry-night] (`starry-night`),
-[`rehype-highlight`][rehype-highlight] (`lowlight`, `highlight.js`),
-or [`@mapbox/rehype-prism`][rehype-prism] (`refractor`, `prism`)
-by doing something like this:
+可使用以下插件实现：
+- [`rehype-starry-night`][rehype-starry-night]（基于 `starry-night`）
+- [`rehype-highlight`][rehype-highlight]（基于 `lowlight` 或 `highlight.js`）
+- [`@mapbox/rehype-prism`][rehype-prism]（基于 `refractor` 或 `prism`）
+
+示例代码如下：
 
 ```js twoslash path="example.js"
 /// <reference types="node" />
@@ -49,7 +45,7 @@ console.log(
 ```
 
 <details>
-  <summary>Expand equivalent JSX</summary>
+  <summary>展开等效 JSX</summary>
 
   ```jsx path="output.jsx"
   <>
@@ -63,21 +59,19 @@ console.log(
 </details>
 
 <Note type="important">
-  **Important**: you must likely also include CSS somewhere on the page.
-  See the documentation of the plugin you’re using for more information.
+  **重要提示**：您可能还需要在页面某处引入 CSS 样式。
+  具体请参考所用插件的文档说明。
 </Note>
 
-## Syntax highlighting at run time
+## 运行时语法高亮
 
-Use for example
-[`react-syntax-highlighter`][react-syntax-highlighter],
-by doing something like this:
+可使用例如 [`react-syntax-highlighter`][react-syntax-highlighter] 实现：
 
-{/* Note: `react-syntax-highlighter` doesn’t seem actively maintained so no twoslash to check this example. */}
+{/* 注意：`react-syntax-highlighter` 似乎不再活跃维护，因此不使用 twoslash 检查此示例 */}
 
 ```jsx path="example.jsx"
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import Post from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
+import Post from './example.mdx' // 假设已使用集成工具将 MDX 编译为 JS
 
 console.log(<Post components={{code}} />)
 
@@ -90,7 +84,7 @@ function code({className, ...properties}) {
 ```
 
 <details>
-  <summary>Expand equivalent JSX</summary>
+  <summary>展开等效 JSX</summary>
 
   ```jsx path="output.jsx"
   <>
@@ -118,9 +112,9 @@ function code({className, ...properties}) {
   ```
 </details>
 
-## Syntax highlighting with the `meta` field
+## 使用 `meta` 字段实现语法高亮
 
-Markdown supports a meta string for code:
+Markdown 支持为代码添加元字符串：
 
 ````mdx path="example.mdx"
 ```js filename="index.js"
@@ -128,23 +122,18 @@ console.log(1)
 ```
 ````
 
-The `meta` part is everything after the language (in this case, `js`).
-This is a *hidden* part of markdown: it’s normally ignored.
-But as the above example shows, it’s a useful place to put some extra fields.
+`meta` 部分是语言标识（本例中的 `js`）之后的所有内容。
+这是 Markdown 的一个*隐藏*特性：通常会被忽略。
+但如上例所示，它可以用来存放额外字段。
 
-`@mdx-js/mdx` doesn’t know whether you’re handling code as a component or what
-the format of that meta string is, so it defaults to how markdown handles it:
-`meta` is ignored.
+`@mdx-js/mdx` 无法预知您是否将代码作为组件处理，也不清楚元字符串的具体格式，因此默认采用 Markdown 的处理方式：忽略 `meta`。
 
-But what if you want to access `meta` at runtime?
-That’s exactly what the rehype plugin
-[`rehype-mdx-code-props`][rehype-mdx-code-props] does.
-It lets you type JSX attributes in the `meta` part which you can access by
-with a component for `pre`.
+但如果您想在运行时访问 `meta` 呢？
+这正是 [`rehype-mdx-code-props`][rehype-mdx-code-props] 插件的用途。
+它允许您在 `meta` 部分编写 JSX 属性，这些属性可以通过 `pre` 组件访问。
 
-That plugin, like all rehype plugins, can be passed as
-[`rehypePlugins` in `ProcessorOptions`][processor-options].
-More info on plugins is available in [§ Extending MDX][extend]
+与其他 rehype 插件一样，该插件可以通过 [`ProcessorOptions`][processor-options] 中的 [`rehypePlugins`][processor-options] 参数传递。
+更多插件信息请参阅 [§ 扩展 MDX][extend]
 
 [commonmark]: https://spec.commonmark.org/current/
 

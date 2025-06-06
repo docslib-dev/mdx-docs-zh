@@ -5,18 +5,18 @@
 
 /**
  * @typedef EntryProperties
- *   Properties for `BlogEntry`.
+ *   `BlogEntry`组件的属性。
  * @property {Readonly<Item>} item
- *   Item.
+ *   条目数据。
  *
  * @typedef GroupProperties
- *   Properties for `BlogGroup`.
+ *   `BlogGroup`组件的属性。
  * @property {string | undefined} [className]
- *   Class name.
+ *   类名。
  * @property {ReadonlyArray<Item>} items
- *   Items.
+ *   条目数组。
  * @property {string | undefined} [sort]
- *   Fields to sort on.
+ *   排序字段。
  */
 
 import {apStyleTitleCase} from 'ap-style-title-case'
@@ -29,9 +29,9 @@ const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 /**
  * @param {Readonly<EntryProperties>} properties
- *   Properties.
+ *   属性对象。
  * @returns {ReactNode}
- *   Element.
+ *   React元素。
  */
 export function BlogEntry(properties) {
   const {item} = properties
@@ -55,9 +55,9 @@ export function BlogEntry(properties) {
   let timeLabel
 
   if (time.length > 1 && time[0] !== time[1]) {
-    timeLabel = time[0] + '-' + time[1] + ' minutes'
+    timeLabel = time[0] + '-' + time[1] + '分钟'
   } else if (time[0]) {
-    timeLabel = time[0] + ' minute' + (time[0] > 1 ? 's' : '')
+    timeLabel = time[0] + '分钟' + (time[0] > 1 ? '' : '')
   }
 
   return (
@@ -72,7 +72,7 @@ export function BlogEntry(properties) {
           <p>{description}</p>
         ) : undefined}
         <span>
-          <a href={name}>Continue reading »</a>
+          <a href={name}>继续阅读 »</a>
         </span>
       </div>
       <div
@@ -82,16 +82,16 @@ export function BlogEntry(properties) {
         <div>
           {meta.author ? (
             <>
-              <small>By {meta.author}</small>
+              <small>作者：{meta.author}</small>
               <br />
             </>
           ) : undefined}
-          <small>Reading time: {timeLabel}</small>
+          <small>阅读时长：{timeLabel}</small>
         </div>
         {meta.published && typeof meta.published === 'object' ? (
           <div style={{marginLeft: 'auto', textAlign: 'right'}}>
             <small>
-              Published on{' '}
+              发布于{' '}
               <time dateTime={meta.published.toISOString()}>
                 {dateTimeFormat.format(meta.published)}
               </time>
@@ -105,9 +105,9 @@ export function BlogEntry(properties) {
 
 /**
  * @param {Readonly<GroupProperties>} properties
- *   Properties.
+ *   属性对象。
  * @returns {ReactNode}
- *   Element.
+ *   React元素。
  */
 export function BlogGroup(properties) {
   const {

@@ -1,4 +1,5 @@
-// Augment vfile data:
+```markdown
+// 增强 vfile 数据：
 /// <reference types="rehype-infer-description-meta" />
 
 /**
@@ -9,30 +10,30 @@
 
 /**
  * @typedef ItemProperties
- *   Properties for `NavigationItem`.
+ *   `NavigationItem` 的属性。
  * @property {boolean | undefined} [includeDescription=false]
- *   Whether to include the description (default: `false`).
+ *   是否包含描述（默认：`false`）。
  * @property {boolean | undefined} [includePublished=false]
- *   Whether to include the published date (default: `false`).
+ *   是否包含发布日期（默认：`false`）。
  * @property {Readonly<Item>} item
- *   Item.
+ *   条目。
  * @property {string | undefined} [name]
- *   Name.
+ *   名称。
  *
  * @typedef GroupOnlyProperties
- *   Properties for `NavigationGroup`;
- *   Other fields are passed to `NavigationItem`.
+ *   `NavigationGroup` 的属性；
+ *   其他字段会传递给 `NavigationItem`。
  * @property {string | undefined} [className]
- *   Class name.
+ *   类名。
  * @property {ReadonlyArray<Item>} items
- *   Items.
+ *   条目列表。
  * @property {string | undefined} [sort]
- *   Fields to sort on.
+ *   排序字段。
  * @property {string | undefined} [name]
- *   Name.
+ *   名称。
  *
  * @typedef {Omit<ItemProperties, 'item'> & GroupOnlyProperties} GroupProperties
- *   Properties for `NavigationGroup`.
+ *   `NavigationGroup` 的属性。
  */
 
 import {apStyleTitleCase} from 'ap-style-title-case'
@@ -45,9 +46,9 @@ const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 /**
  * @param {Readonly<GroupProperties>} properties
- *   Properties.
+ *   属性。
  * @returns {ReactNode}
- *   Element.
+ *   元素。
  */
 export function NavigationGroup(properties) {
   const {
@@ -68,9 +69,9 @@ export function NavigationGroup(properties) {
 
 /**
  * @param {Readonly<ItemProperties>} properties
- *   Properties.
+ *   属性。
  * @returns {ReactNode}
- *   Element.
+ *   元素。
  */
 export function NavigationItem(properties) {
   const {
@@ -92,7 +93,7 @@ export function NavigationItem(properties) {
 
   if (includeDescription) {
     if (meta.descriptionHast) {
-      // Cast because we don’t expect doctypes.
+      // 类型断言，因为我们不期望文档类型。
       const children = /** @type {Array<ElementContent>} */ (
         meta.descriptionHast.children
       )
@@ -150,3 +151,4 @@ export function NavigationItem(properties) {
     </li>
   )
 }
+```

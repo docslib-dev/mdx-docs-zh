@@ -10,125 +10,106 @@ export const info = {
 }
 export const navSortSelf = 1
 
-# What is MDX?
+# 什么是MDX？
 
-This article explains what the MDX format is.
-It shows how markdown, JSX, JavaScript expressions, and `import` and
-`export` statements in ESM can be used inside MDX. {/* more */}
-See [§ Getting started][start] for details on how to integrate MDX into your
-project.
-See [§ Using MDX][use] when you’re already all set up to use MDX.
+本文解释了MDX格式的概念。
+它展示了如何在MDX中使用markdown、JSX、JavaScript表达式以及ESM中的`import`和`export`语句。{/* more */}
+关于如何将MDX集成到项目中的详细信息，请参阅[§ 入门指南][start]。
+若您已准备好使用MDX，请参阅[§ 使用MDX][use]。
 
-## Contents
+## 目录
 
-* [Prerequisites](#prerequisites)
-* [Markdown for the component era](#markdown-for-the-component-era)
-* [MDX syntax](#mdx-syntax)
+* [先决条件](#先决条件)
+* [组件时代的Markdown](#组件时代的markdown)
+* [MDX语法](#mdx语法)
   * [Markdown](#markdown)
   * [JSX](#jsx)
-  * [Expressions](#expressions)
+  * [表达式](#表达式)
   * [ESM](#esm)
-  * [Interleaving](#interleaving)
-* [Further reading](#further-reading)
+  * [交错书写](#交错书写)
+* [延伸阅读](#延伸阅读)
 
-## Prerequisites
+## 先决条件
 
-To write and enjoy MDX, you should be familiar with both markdown
-(see this [cheat sheet and tutorial][commonmark-help] for help) and
-JavaScript (specifically [JSX][jsx-spec]).
+要编写并享受MDX，您应熟悉markdown（参阅此[速查表与教程][commonmark-help]）和JavaScript（特别是[JSX][jsx-spec]）。
 
-## Markdown for the component era
+## 组件时代的Markdown
 
-MDX allows you to use JSX in your markdown content.
-You can import components, such as interactive charts or alerts, and embed them
-within your content.
-This makes writing long-form content with components a blast.
-🚀
+MDX允许您在markdown内容中使用JSX。
+您可以导入组件（如交互式图表或提示框）并将其嵌入内容中。
+这使得结合组件编写长篇内容变得非常愉快。🚀
 
-More practically MDX can be explained as a format that combines markdown with
-JSX and looks as follows:
+更实际地说，MDX可被解释为一种结合markdown与JSX的格式，如下所示：
 
 ```mdx
-# Hello, world!
+# 你好，世界！
 
 <div className="note">
-  > Some notable things in a block quote!
+  > 引用块中的一些注意事项！
 </div>
 ```
 
-The heading and block quote are markdown, while those *HTML-like tags* are JSX.
-Markdown often feels more natural to type than HTML or JSX for common things
-like emphasis or headings.
-JSX is an extension to JavaScript that *looks* like HTML but makes it convenient
-to use components (reusable things).
+标题和引用块是markdown，而那些*类似HTML的标签*是JSX。
+对于常见内容（如强调或标题），markdown通常比HTML或JSX更自然简洁。
+JSX是JavaScript的扩展，*看起来*像HTML但使组件（可复用元素）的使用更加便捷。
 
-This example uses `className` on the `<div>`.
-That’s because it was written for React and React expects classes that way.
-Other frameworks, such as Vue and Preact, expect classes to be defined
-differently, so note that there are some differences in how JSX has to be
-authored depending on what tools it’s used with.
+此例在`<div>`上使用了`className`，因为这是为React编写的，React期望类名如此定义。
+其他框架（如Vue和Preact）对类名的定义方式不同，因此需注意根据所用工具调整JSX的编写方式。
 
-A few other features from JavaScript are supported in MDX as well: expressions
-in braces (`{1 + 1}`) and ESM (`import` and `export`).
+MDX还支持JavaScript的其他特性：大括号内的表达式（`{1 + 1}`）和ESM（`import`与`export`）。
 
-## MDX syntax
+## MDX语法
 
 <Note type="info">
-  **Note**:
-  You don’t have to use this syntax with `@mdx-js/*` packages.
-  Or use it always.
-  If you’re using a bundler integration you can change between MDX and
-  markdown through the file extension (`.mdx` vs. `.md`).
-  Alternatively, `options.format` can be used.
+  **注意**：
+  您不必在`@mdx-js/*`包中使用此语法。
+  或始终使用它。
+  若使用打包器集成，可通过文件扩展名（`.mdx`与`.md`）切换MDX和markdown。
+  或者使用`options.format`配置。
 </Note>
 
-The MDX syntax combines markdown with JSX.
-This gives us something along the lines of literate programming.
-It also gives us an odd mix of two languages: markdown is **whitespace
-sensitive** and **forgiving** (what you type may not exactly work but it
-won’t crash) whereas JavaScript is **whitespace insensitive** and
-**unforgiving** (it does crash on typos).
+MDX语法结合了markdown与JSX。
+这为我们提供了类似于文学编程的方式。
+同时也混合了两种语言的特点：markdown**对空格敏感**且**容错性强**（输入可能不完全正确但不会崩溃），而JavaScript**对空格不敏感**且**不容错**（错误会导致崩溃）。
 
-Weirdly enough we quite like how they combine!
+奇怪的是，我们非常喜欢它们的结合！
 
 ### Markdown
 
-Markdown often feels more natural to type than HTML or JSX for common things
-like emphasis or headings.
-Markdown typically looks more like what’s intended and is terser.
-Instead of the following HTML:
+对于常见内容（如强调或标题），markdown通常比HTML或JSX更自然简洁。
+例如，以下HTML：
 
 ```html
 <blockquote>
-  <p>A blockquote with <em>some</em> emphasis.</p>
+  <p>引用块中包含<em>一些</em>强调。</p>
 </blockquote>
 ```
 
-You can write the equivalent in markdown (or MDX) like so:
+在markdown（或MDX）中等价于：
 
 ```md
-> A blockquote with *some* emphasis.
+> 引用块中包含 *一些* 强调。
 ```
 
-MDX supports standard markdown by default ([CommonMark][]):
+MDX默认支持标准markdown（[CommonMark][])：
 
 ````md
-# Heading (rank 1)
-## Heading 2
-### 3
-#### 4
-##### 5
-###### 6
+# 一级标题
+## 二级标题
+### 三级
+#### 四级
+##### 五级
+###### 六级
 
-> Block quote
+> 引用块
 
-* Unordered
-* List
+* 无序
+* 列表
 
-1. Ordered
-2. List
+1. 有序
+2. 列表
 
-A paragraph, introducing a thematic break:
+一段文字，引入分隔线：
 
 ---
 
@@ -136,212 +117,189 @@ A paragraph, introducing a thematic break:
 some.code()
 ```
 
-a [link](https://example.com), an ![image](./image.png), some *emphasis*,
-something **strong**, and finally a little `code()`.
+一个[链接](https://example.com)，一张![图片](./image.png)，一些*强调*，**加粗**内容，以及`code()`代码片段。
 ````
 
-Nonstandard markdown features (such as GFM, frontmatter, math, syntax
-highlighting) can be enabled with plugins (see
-[¶ Using plugins][using-plugins]).
+非标准markdown功能（如GFM、frontmatter、数学公式、语法高亮）可通过插件启用（参见[¶ 使用插件][using-plugins]）。
 
-Some markdown features don’t work in MDX:
+MDX中部分markdown特性不可用：
 
-* Indented code does not work in MDX:
+* 缩进代码在MDX中无效：
   ```mdx
-      console.log(1) // this is a paragraph in MDX!
+      console.log(1) // 在MDX中这是一个段落！
   ```
-  The reason for that is so you can nicely indent your components:
+  这是为了便于缩进组件：
   ```mdx
   <main>
     <article>
-      # Hello!
+      # 你好！
     </article>
   </main>
   ```
-* Autolinks do not work in MDX.
-  The reason is that they can be indistinguishable from JSX (for example:
-  `<svg:rect>`) and we prefer being explicit.
-  If you want links, use full links:
-  `[descriptive text](https://and-the-link-here.com)`
-* HTML syntax doesn’t work in MDX as it’s replaced by JSX (`<img>` to
-  `<img />`).
-  Instead of HTML comments, you can use JavaScript comments in braces:
-  `{/* comment! */}`
-* Unescaped left angle bracket / less than (`<`) and left curly brace (`{`)
-  have to be escaped: `\<` or `\{` (or use expressions: `{'<'}`, `{'{'}`)
+* 自动链接在MDX中无效。
+  因为它们可能与JSX混淆（例如：`<svg:rect>`），我们更推荐显式写法。
+  如需链接，请使用完整格式：
+  `[描述文本](https://链接地址.com)`
+* HTML语法在MDX中无效，因其被替换为JSX（`<img>`变为`<img />`）。
+  可使用JavaScript注释替代HTML注释：`{/* 注释！ */}`
+* 未转义的左尖括号/小于号（`<`）和左花括号（`{`）必须转义：`\<`或`\{`（或使用表达式：`{'<'}`，`{'{'}`）
 
-More on how MDX differs from markdown is
-[documented here](https://github.com/micromark/mdx-state-machine#72-deviations-from-markdown).
+更多MDX与markdown的差异详见[此文档](https://github.com/micromark/mdx-state-machine#72-deviations-from-markdown)。
 
 ### JSX
 
-[JSX][] is an extension to JavaScript that *looks* like HTML but makes it
-convenient to use components (reusable things).
-JSX is typically combined with a frontend framework like React, Preact, or Vue.
-These frameworks add support for components, which let you change repeating
-things like the following markup:
+[JSX][]是JavaScript的扩展，*看起来*像HTML但便于使用组件（可复用元素）。
+JSX通常与React、Preact或Vue等前端框架结合使用。
+这些框架增加了对组件的支持，使您能优化重复内容，如以下标记：
 
 ```html
-<h2>Hello, Venus!</h2>
-<h2>Hello, Mars!</h2>
+<h2>你好，金星！</h2>
+<h2>你好，火星！</h2>
 ```
 
-…to JSX (or MDX) like this:
+…可转换为JSX（或MDX）：
 
 ```mdx
-<Welcome name="Venus" />
-<Welcome name="Mars" />
+<Welcome name="金星" />
+<Welcome name="火星" />
 ```
 
-JSX is good for **components**.
-It makes repeating things more clear and allows for separation of concerns.
-MDX supports JSX syntax.
-The following looks a lot like HTML:
+JSX适用于**组件**。
+它使重复内容更清晰，并支持关注点分离。
+MDX支持JSX语法。
+以下内容类似HTML：
 
 ```mdx
-<h1>Heading!</h1>
+<h1>标题！</h1>
 
-<abbr title="HyperText Markup Language">HTML</abbr> is a lovely language.
+<abbr title="超文本标记语言">HTML</abbr>是一种可爱的语言。
 
 <section>
-  And here is *markdown* in **JSX**!
+  这里是JSX中的*markdown*！
 </section>
 ```
 
-But as previously mentioned you can use components too.
-Note that components must be defined.
-You can import them, define them locally, or pass them in later (see
-[§ Using MDX][use]):
+如前所述，您也可以使用组件。
+注意组件必须被定义，可通过导入、局部定义或后续传递（参见[§ 使用MDX][use]）：
 
 ```mdx
 <MyComponent id="123" />
 
-You can also use objects with components, such as the `thisOne` component on
-the `myComponents` object: <myComponents.thisOne />
+您还可以使用对象中的组件，如`myComponents`对象上的`thisOne`组件：<myComponents.thisOne />
 
 <Component
   open
   x={1}
-  label={'this is a string, *not* markdown!'}
+  label={'这是一个字符串，*不是*markdown！'}
   icon={<Icon />}
 />
 ```
 
-There are a few edge cases
-[where MDX differs from JSX](https://github.com/micromark/mdx-state-machine#73-deviations-from-jsx).
+部分边缘情况[MDX与JSX的差异](https://github.com/micromark/mdx-state-machine#73-deviations-from-jsx)。
 
-### Expressions
+### 表达式
 
-MDX also supports JavaScript expressions inside curly braces:
+MDX支持大括号内的JavaScript表达式：
 
 ```mdx
-Two 🍰 is: {Math.PI * 2}
+两倍🍰是：{Math.PI * 2}
 ```
 
-Expressions can contain whole JavaScript programs as long as they’re
-(wrapped in) an expression that evaluates to something that can be rendered.
-You can use an [IIFE][] like so:
+只要表达式最终可被渲染，其内可包含完整的JavaScript程序。
+例如使用[IIFE][]：
 
 ```mdx
 {(function () {
   const guess = Math.random()
 
   if (guess > 0.66) {
-    return <span style={{color: 'tomato'}}>Look at us.</span>
+    return <span style={{color: 'tomato'}}>看看我们。</span>
   }
 
   if (guess > 0.33) {
-    return <span style={{color: 'violet'}}>Who would have guessed?!</span>
+    return <span style={{color: 'violet'}}>谁能想到？！</span>
   }
 
-  return <span style={{color: 'goldenrod'}}>Not me.</span>
+  return <span style={{color: 'goldenrod'}}>不是我。</span>
 })()}
 ```
 
-Expressions can be empty or contain just a comment:
+表达式可为空或仅包含注释：
 
 ```mdx
-{/* A comment! */}
+{/* 注释！ */}
 ```
 
 ### ESM
 
-MDX supports `import` and `export` statements from JavaScript as well.
-These ESM features can be used within MDX to define things:
+MDX也支持JavaScript中的`import`和`export`语句。
+这些ESM特性可用于在MDX中定义内容：
 
 ```mdx
 import {External} from './some/place.js'
 
 export const Local = properties => <span style={{color: 'red'}} {...properties} />
 
-An <External>external</External> component and a <Local>local one</Local>.
+一个<External>外部</External>组件和一个<Local>本地</Local>组件。
 ```
 
-ESM can also be used for non-components (data):
+ESM也可用于非组件（数据）：
 
 ```mdx
 import {Chart} from './chart.js'
 import population from './population.js'
 export const pi = 3.14
 
-<Chart data={population} label={'Something with ' + pi} />
+<Chart data={population} label={'某物与' + pi} />
 ```
 
-### Interleaving
+### 交错书写
 
-You can use markdown “inlines” but not “blocks” inside JSX if the text and tags
-are on the same line:
+若文本与标签在同一行，您可在JSX中使用markdown“行内”元素而非“块”元素：
 
 ```mdx
-<div># this is not a heading but *this* is emphasis</div>
+<div># 这不是标题但*这是*强调</div>
 ```
 
-Text and tags on one line don’t produce blocks so they don’t produce `<p>`s
-either.
-On separate lines, they do:
+同一行的文本和标签不会生成块，因此也不会生成`<p>`。
+不同行则会：
 
 ```mdx
 <div>
-  This is a `p`.
+  这是一个`p`。
 </div>
 ```
 
-We differentiate using this rule (same line or not).
-Not based on semantics of elements in HTML.
-So you *can* build incorrect HTML (which you shouldn’t):
+我们通过此规则（是否同行）区分，而非基于HTML元素语义。
+因此您*可以*构建不正确的HTML（但不应该）：
 
 ```mdx
 <h1 className="main">
-  Don’t do this: it’s a `p` in an `h1`
+  不要这样做：这是`h1`中的`p`
 </h1>
 
-<h1 className="main">Do this: an `h1` with `code`</h1>
+<h1 className="main">这样做：带`code`的`h1`</h1>
 ```
 
-It’s not possible to wrap “blocks” if text and tags are on the same line but the
-corresponding opening and closing tags are in different blocks
-(so this is invalid!):
+若文本与标签同行但对应的开始和结束标签位于不同块中，则无法包裹“块”（此为无效示例）：
 
 ```mdx-invalid chrome=no
-Welcome! <a href="about.html">
+欢迎！ <a href="about.html">
 
-This is home of...
+这里是...
 
-# The Falcons!</a>
+# 猎鹰队！</a>
 ```
 
-To parse markdown, we first have to divide it into “blocks”.
-So in this case two paragraphs and a heading.
-Leaving an opening `a` tag in the first paragraph and a closing `a` tag in
-the heading.
-Which causes an error as it is misnested.
+要解析markdown，我们首先需将其划分为“块”。
+此例中为两个段落和一个标题。
+导致第一个段落中留下开始`a`标签，标题中留下结束`a`标签。
+这会因嵌套错误而引发错误。
 
-## Further reading
+## 延伸阅读
 
-* If you want to use MDX in your project, see [§ Getting started][start];
-  see [§ Using MDX][use] when you’re already all set up
-* If you’re getting errors when working with the format, see
-  [§ Troubleshooting MDX][trouble]
+* 若要在项目中使用MDX，请参阅[§ 入门指南][start]；若已准备好，请参阅[§ 使用MDX][use]
+* 若在使用格式时遇到错误，请参阅[§ MDX故障排除][trouble]
 
 [commonmark]: https://commonmark.org
 

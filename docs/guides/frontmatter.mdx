@@ -7,15 +7,15 @@ export const info = {
 }
 export const navSortSelf = 2
 
-# Frontmatter
+# Frontmatter（前言元数据）
 
-This guide explores how to support YAML frontmatter in MDX. {/* more */}
-MDX supports standard markdown syntax ([CommonMark][]).
-That means frontmatter is not supported by default.
+本指南探讨如何在MDX中支持YAML格式的前言元数据。{/* more */}
+MDX支持标准Markdown语法（[CommonMark][]）。
+这意味着默认情况下不支持前言元数据。
 
-MDX comes with a powerful and dynamic alternative to frontmatter, namely ESM
-(`import`/`export`).
-These exports:
+MDX提供了比前言元数据更强大且动态的替代方案，即ESM模块
+（`import`/`export`）。
+这些导出语句：
 
 ```mdx path="example.mdx"
 export const name = 'World'
@@ -24,7 +24,7 @@ export const title = 'Hi, ' + name + '!'
 # {title}
 ```
 
-Can be used like so:
+可以这样使用：
 
 ```js twoslash path="example.js"
 // @filename: types.d.ts
@@ -36,14 +36,14 @@ declare module '*.mdx' {
 // @filename: example.js
 /// <reference types="node" />
 // ---cut---
-import * as Post from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
+import * as Post from './example.mdx' // 假设使用集成工具将MDX编译为JS
 
-console.log(Post.title) // Prints 'Hi, World!'
+console.log(Post.title) // 输出 'Hi, World!'
 ```
 
-You might prefer frontmatter though, as it lets you define data that can be
-extracted from the file system *before* compiling.
-Say our MDX with frontmatter looked like this:
+不过您可能仍倾向于使用前言元数据，因为它允许您在编译前
+从文件系统中提取数据。
+假设我们带有前言元数据的MDX文件如下：
 
 ```mdx path="example.mdx"
 ---
@@ -53,7 +53,7 @@ title: Hi, World!
 # Hi, World!
 ```
 
-Then without compiling or evaluating the metadata can be accessed like so:
+那么无需编译或执行，就可以这样访问元数据：
 
 ```js twoslash path="example.js"
 /// <reference types="node" />
@@ -67,9 +67,9 @@ matter(file)
 console.log(file.data.matter)
 ```
 
-Our compiler, `@mdx-js/mdx`, doesn’t understand YAML frontmatter by default but
-it can be enabled by using a remark plugin,
-[`remark-frontmatter`][remark-frontmatter]:
+我们的编译器`@mdx-js/mdx`默认不支持YAML前言元数据，
+但可以通过使用remark插件
+[`remark-frontmatter`][remark-frontmatter]来启用：
 
 ```js twoslash path="example.js"
 // @filename: example.js
@@ -86,11 +86,10 @@ const file = await compile(await fs.readFile('example.mdx'), {
 console.log(file)
 ```
 
-Now it “works”.
-The frontmatter is not rendered as if it was markdown.
-But the data embedded in the frontmatter isn’t available from *inside* the MDX.
-What if we wanted that too?
-Like so:
+现在它"生效"了。
+前言元数据不会像Markdown那样被渲染。
+但前言元数据中嵌入的数据仍无法在MDX文件内部使用。
+如果我们希望实现这样的效果呢：
 
 ```mdx path="example.mdx"
 ---
@@ -100,12 +99,12 @@ title: Hi, World!
 # {title}
 ```
 
-That’s exactly what the remark plugin
-[`remark-mdx-frontmatter`][remark-mdx-frontmatter] does.
+这正是remark插件
+[`remark-mdx-frontmatter`][remark-mdx-frontmatter]的功能。
 
-That plugin, like all remark plugins, can be passed as
-[`remarkPlugins` in `ProcessorOptions`][processor-options].
-More info on plugins is available in [§ Extending MDX][extend]
+该插件与所有remark插件一样，可以通过
+[`ProcessorOptions`中的`remarkPlugins`][processor-options]传入。
+更多关于插件的信息请参阅[§ 扩展MDX][extend]
 
 [commonmark]: https://spec.commonmark.org/current/
 

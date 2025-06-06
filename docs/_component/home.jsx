@@ -6,17 +6,18 @@
 
 /**
  * @typedef {Exclude<Data['meta'], undefined>} Meta
+ *   元数据。
  *
  * @typedef Properties
- *   Properties.
+ *   属性。
  * @property {string} name
- *   Name.
+ *   名称。
  * @property {ReactNode} children
- *   Children.
+ *   子元素。
  * @property {Item} navigationTree
- *   Navigation tree.
+ *   导航树。
  * @property {Meta} meta
- *   Meta.
+ *   元数据。
  */
 
 import React from 'react'
@@ -25,9 +26,9 @@ import {NavigationSite, NavigationSiteSkip} from './nav-site.jsx'
 
 /**
  * @param {Readonly<Properties>} properties
- *   Properties.
+ *   属性。
  * @returns {ReactNode}
- *   Element.
+ *   元素。
  */
 export function Home(properties) {
   const {children, meta, name, navigationTree} = properties

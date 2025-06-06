@@ -4,14 +4,14 @@
 
 /**
  * @typedef {'important' | 'info' | 'legacy'} NoteType
- *   Type.
+ *   类型标识。
  *
  * @typedef Properties
- *   Properties for `Note`.
+ *   `Note`组件的属性定义。
  * @property {NoteType} type
- *   Kind.
+ *   提示类型。
  * @property {Readonly<ReactNode>} children
- *   Children.
+ *   子节点。
  */
 
 import React from 'react'
@@ -21,9 +21,9 @@ const known = new Set(['info', 'legacy', 'important'])
 
 /**
  * @param {Readonly<Properties>} properties
- *   Properties.
+ *   组件属性。
  * @returns {ReactNode}
- *   Element.
+ *   渲染元素。
  */
 export function Note(properties) {
   const {children, type} = properties
@@ -31,7 +31,7 @@ export function Note(properties) {
 
   if (known.has(type)) className.push(type)
   else {
-    throw new Error('Unknown note type `' + type + '`')
+    throw new Error('未知的提示类型 `' + type + '`')
   }
 
   return <div className={className.join(' ')}>{children}</div>

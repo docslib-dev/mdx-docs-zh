@@ -1,3 +1,4 @@
+```jsx
 import React from 'react'
 
 export function Mdx() {
@@ -30,3 +31,4 @@ export function Mdx() {
     </svg>
   )
 }
+```

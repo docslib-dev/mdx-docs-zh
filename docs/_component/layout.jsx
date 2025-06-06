@@ -6,17 +6,17 @@
 
 /**
  * @typedef Properties
- *   Properties.
+ *   属性类型。
  * @property {string} name
- *   Name.
+ *   名称。
  * @property {Readonly<URL>} ghUrl
- *   GitHub URL.
+ *   GitHub URL。
  * @property {Readonly<Data['meta']> | undefined} [meta]
- *   Meta.
+ *   元数据。
  * @property {Readonly<Item>} navigationTree
- *   Navigation tree.
+ *   导航树。
  * @property {ReactNode} children
- *   Children.
+ *   子元素。
  */
 
 import React from 'react'
@@ -28,9 +28,9 @@ const dateTimeFormat = new Intl.DateTimeFormat('en', {dateStyle: 'long'})
 
 /**
  * @param {Readonly<Properties>} properties
- *   Properties.
+ *   属性参数。
  * @returns {ReactNode}
- *   Element.
+ *   返回的React元素。
  */
 export function Layout(properties) {
   const {ghUrl, name, navigationTree} = properties
@@ -66,9 +66,9 @@ export function Layout(properties) {
   let timeLabel
 
   if (metaTime.length > 1 && metaTime[0] !== metaTime[1]) {
-    timeLabel = metaTime[0] + '-' + metaTime[1] + ' minutes'
+    timeLabel = metaTime[0] + '-' + metaTime[1] + ' 分钟'
   } else if (metaTime[0]) {
-    timeLabel = metaTime[0] + ' minute' + (metaTime[0] > 1 ? 's' : '')
+    timeLabel = metaTime[0] + ' 分钟' + (metaTime[0] > 1 ? '' : '')
   }
 
   const up =
@@ -84,7 +84,7 @@ export function Layout(properties) {
 
   const back = previous ? (
     <div>
-      Previous:
+      上一篇:
       <br />
       <a rel="prev" href={previous.name}>
         {entryToTitle(previous)}
@@ -94,7 +94,7 @@ export function Layout(properties) {
 
   const forward = next ? (
     <div>
-      Next:
+      下一篇:
       <br />
       <a rel="next" href={next.name}>
         {entryToTitle(next)}
@@ -104,16 +104,16 @@ export function Layout(properties) {
 
   const edit = (
     <div>
-      Found a typo? Other suggestions?
+      发现拼写错误？有其他建议？
       <br />
-      <a href={ghUrl.href}>Edit this page on GitHub</a>
+      <a href={ghUrl.href}>在GitHub上编辑此页面</a>
     </div>
   )
 
   const published =
     meta.published && typeof meta.published === 'object' ? (
       <>
-        Published on{' '}
+        发布于{' '}
         <time dateTime={meta.published.toISOString()}>
           {dateTimeFormat.format(meta.published)}
         </time>
@@ -123,7 +123,7 @@ export function Layout(properties) {
   const modified =
     meta.modified && typeof meta.modified === 'object' ? (
       <>
-        Modified on{' '}
+        修改于{' '}
         <time dateTime={meta.modified.toISOString()}>
           {dateTimeFormat.format(meta.modified)}
         </time>
@@ -139,7 +139,7 @@ export function Layout(properties) {
       </div>
     ) : undefined
 
-  const readingTime = timeLabel ? <>{timeLabel} read</> : undefined
+  const readingTime = timeLabel ? <>{timeLabel} 阅读时长</> : undefined
 
   const creditsList = metaAuthors.map(function (d, i) {
     const href = d.github
@@ -153,7 +153,7 @@ export function Layout(properties) {
     )
   })
 
-  const credits = creditsList.length > 0 ? <>By {creditsList}</> : undefined
+  const credits = creditsList.length > 0 ? <>作者：{creditsList}</> : undefined
 
   const info =
     readingTime || credits ? (
@@ -216,11 +216,11 @@ export function Layout(properties) {
 
   /**
    * @param {Item} item
-   *   Item.
+   *   当前项。
    * @param {Item | undefined} [parent]
-   *   Parent.
+   *   父项（可选）。
    * @returns {[self: Item, parent: Item | undefined] | undefined}
-   *   Self and parent.
+   *   返回当前项及其父项。
    */
   function findSelfAndParent(item, parent) {
     if (item.name === name) return [item, parent]
@@ -237,9 +237,9 @@ export function Layout(properties) {
 
 /**
  * @param {Item} d
- *   Item.
+ *   导航项。
  * @returns {string | undefined}
- *   Title.
+ *   返回标题文本。
  */
 function entryToTitle(d) {
   return d.data.matter?.title || d.data.meta?.title || undefined
@@ -247,9 +247,9 @@ function entryToTitle(d) {
 
 /**
  * @param {Item} d
- *   Item.
+ *   导航项。
  * @returns {[number, number] | [number] | []}
- *   Reading time.
+ *   返回阅读时间范围。
  */
 function accumulateReadingTime(d) {
   const time = (d.data.meta || {}).readingTime

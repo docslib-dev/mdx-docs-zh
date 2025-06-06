@@ -7,29 +7,24 @@ export const info = {
 }
 export const navSortSelf = 5
 
-# Embed
+# 嵌入功能
 
-This guide explores how to embed things like tweets, gists or codepens in
-markdown. {/* more */}
-MDX supports standard markdown syntax ([CommonMark][]).
-It does not support embeds by default.
+本指南探讨如何在 markdown 中嵌入推文、代码片段或 CodePen 等内容。{/* more */}
+MDX 支持标准 markdown 语法 ([CommonMark][])，
+但默认不支持内容嵌入。
 
-There are two ways to accomplish embeds: at compile time or at runtime.
-Doing it at compile time means the effort is spent upfront so that readers will
-have a fast experience as no requests have to be made on the client.
-Doing it at runtime gives more flexibility by moving the work to the client.
-This can result in a slow experience for readers though.
-It also depends on what framework you use (as in it’s specific to React, Preact,
-Vue, etc.)
+实现嵌入有两种方式：编译时处理或运行时处理。
+编译时处理意味着预先完成转换工作，读者将获得更流畅的体验，因为客户端无需发起额外请求。
+运行时处理则通过将工作转移到客户端来提供更大灵活性，但可能导致读者体验较慢。
+具体实现还取决于您使用的框架（即针对 React、Preact、Vue 等特定框架）。
 
-## Embeds at compile time
+## 编译时嵌入
 
-You can use [`@remark-embedder/core`][remark-embedder] by doing something like
-this:
+您可以使用 [`@remark-embedder/core`][remark-embedder] 实现如下：
 
 ```js path="example.js"
 import {compile} from '@mdx-js/mdx'
-// Note: `@remark-embedder` is currently using faux-esm.
+// 注意：`@remark-embedder` 目前使用伪 ESM 模块
 import fauxRemarkEmbedder from '@remark-embedder/core'
 import fauxOembedTransformer from '@remark-embedder/transformer-oembed'
 
@@ -37,7 +32,7 @@ const remarkEmbedder = fauxRemarkEmbedder.default
 const oembedTransformer = fauxOembedTransformer.default
 
 const code = `
-Check out this video:
+看看这个视频：
 
 https://www.youtube.com/watch?v=dQw4w9WgXcQ
 `
@@ -47,7 +42,7 @@ console.log(
     await compile(code, {
       remarkPlugins: [
         [
-          // @ts-expect-error: `remarkEmbedder` types are wrong.
+          // @ts-expect-error: `remarkEmbedder` 类型定义有误
           remarkEmbedder,
           {transformers: [oembedTransformer]}
         ]
@@ -58,11 +53,11 @@ console.log(
 ```
 
 <details>
-  <summary>Expand equivalent JSX</summary>
+  <summary>展开等效 JSX</summary>
 
   ```jsx path="output.jsx"
   <>
-    <p>Check out this video:</p>
+    <p>看看这个视频：</p>
     <iframe
       width="200"
       height="113"
@@ -76,53 +71,52 @@ console.log(
   ```
 </details>
 
-## Embeds at run time
+## 运行时嵌入
 
-You can use the React-specific [MDX Embed][mdx-embed] to embed things in MDX.
-Here is an example MDX file that uses a specific embed without `@mdx-js/react`:
+您可以使用 React 专用的 [MDX Embed][mdx-embed] 在 MDX 中嵌入内容。
+以下是不使用 `@mdx-js/react` 的 MDX 文件示例：
 
 ```mdx path="example.mdx"
 import {CodePen} from 'mdx-embed'
 
-Here’s a codepen, and some other blog post text.
+这是一个 CodePen 以及一些其他博文内容。
 
 <CodePen codePenId="PNaGbb" />
 ```
 
 <details>
-  <summary>Expand equivalent JSX</summary>
+  <summary>展开等效 JSX</summary>
 
   ```jsx path="output.jsx"
   <>
-    <p>Here’s a codepen, and some other blog post text.</p>
+    <p>这是一个 CodePen 以及一些其他博文内容。</p>
     <CodePen codePenId="PNaGbb" />
   </>
   ```
 </details>
 
-If you don’t want to use explicit imports in MDX files:
+如果您不想在 MDX 文件中显式导入：
 
 ```mdx path="example.mdx"
-Here’s a codepen, and some other blog post text.
+这是一个 CodePen 以及一些其他博文内容。
 
 <CodePen codePenId="PNaGbb" />
 ```
 
-Then you can either pass all components:
+您可以选择传递所有组件：
 
 ```jsx path="example.jsx"
 import * as embeds from 'mdx-embed'
-import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
+import Example from './example.mdx' // 假设已使用集成工具将 MDX 编译为 JS
 
 console.log(<Example components={...embeds} />)
 ```
 
-Or, if you’ve installed and configured [`@mdx-js/react`][mdx-react], you can
-also use `MDXEmbedProvider`:
+或者，如果您已安装并配置 [`@mdx-js/react`][mdx-react]，也可以使用 `MDXEmbedProvider`：
 
 ```jsx path="example.jsx"
 import {MDXEmbedProvider} from 'mdx-embed'
-import Example from './example.mdx' // Assumes an integration is used to compile MDX -> JS.
+import Example from './example.mdx' // 假设已使用集成工具将 MDX 编译为 JS
 
 console.log(
   <MDXEmbedProvider>

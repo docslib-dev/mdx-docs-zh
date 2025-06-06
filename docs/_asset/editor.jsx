@@ -1,3 +1,4 @@
+```markdown
 /* @jsxRuntime automatic */
 /* @jsxImportSource react */
 
@@ -22,26 +23,26 @@
 
 /**
  * @typedef DisplayProperties
- *   Properties.
+ *   属性集
  * @property {Error} error
- *   Error.
+ *   错误对象
  *
  * @typedef EvalNok
- *   Not OK.
+ *   异常状态
  * @property {false} ok
- *   Whether OK.
+ *   是否正常
  * @property {Error} value
- *   Error.
+ *   错误值
  *
  * @typedef EvalOk
- *   OK.
+ *   正常状态
  * @property {true} ok
- *   Whether OK.
+ *   是否正常
  * @property {ReactNode} value
- *   Result.
+ *   返回值
  *
  * @typedef {EvalNok | EvalOk} EvalResult
- *   Result.
+ *   执行结果
  */
 
 import {compile, nodeTypes, run} from '@mdx-js/mdx'
@@ -69,12 +70,12 @@ import {removePosition} from 'unist-util-remove-position'
 import {visit} from 'unist-util-visit'
 import {VFile} from 'vfile'
 
-const sample = `# Hello, world!
+const sample = `# 你好，世界！
 
-Below is an example of markdown in JSX.
+以下是JSX中的Markdown示例。
 
 <div style={{backgroundColor: 'violet', padding: '1rem'}}>
-  Try and change the background color to \`tomato\`.
+  尝试将背景色改为\`tomato\`。
 </div>`
 
 /** @type {ReadonlyArray<Grammar>} */
@@ -103,9 +104,9 @@ if (window.location.pathname === '/playground/' && editor) {
 
 /**
  * @param {Element} main
- *   DOM element.
+ *   DOM元素
  * @returns {undefined}
- *   Nothing.
+ *   无返回值
  */
 function init(main) {
   const root = ReactDom.createRoot(main)
@@ -113,14 +114,14 @@ function init(main) {
   createStarryNight(grammars).then(
     /**
      * @returns {undefined}
-     *   Nothing.
+     *   无返回值
      */
     function (x) {
       starryNight = x
 
       const missing = starryNight.missingScopes()
       if (missing.length > 0) {
-        throw new Error('Unexpected missing required scopes: `' + missing + '`')
+        throw new Error('意外缺失必要作用域: `' + missing + '`')
       }
 
       root.render(<Playground />)
@@ -131,7 +132,7 @@ function init(main) {
 function Playground() {
   const [directive, setDirective] = useState(false)
   const [evalResult, setEvalResult] = useState(
-    // Cast to more easily use actual value.
+    // 类型转换以便使用实际值
     /** @type {unknown} */ (undefined)
   )
   const [development, setDevelopment] = useState(false)
@@ -155,9 +156,9 @@ function Playground() {
         },
         /**
          * @param {Error} error
-         *   Error.
+         *   错误对象
          * @returns {undefined}
-         *   Nothing.
+         *   无返回值
          */
         function (error) {
           setEvalResult({ok: false, value: error})
@@ -252,9 +253,9 @@ function Playground() {
         function captureMdast() {
           /**
            * @param {MdastRoot} tree
-           *   Tree.
+           *   语法树
            * @returns {undefined}
-           *   Nothing.
+           *   无返回值
            */
           return function (tree) {
             const clone = structuredClone(tree)
@@ -266,9 +267,9 @@ function Playground() {
         function captureHast() {
           /**
            * @param {HastRoot} tree
-           *   Tree.
+           *   语法树
            * @returns {undefined}
-           *   Nothing.
+           *   无返回值
            */
           return function (tree) {
             const clone = structuredClone(tree)
@@ -280,9 +281,9 @@ function Playground() {
         function captureEsast() {
           /**
            * @param {Program} tree
-           *   Tree.
+           *   语法树
            * @returns {undefined}
-           *   Nothing.
+           *   无返回值
            */
           return function (tree) {
             const clone = structuredClone(tree)
@@ -309,7 +310,7 @@ function Playground() {
   )
 
   const scope = formatMarkdown ? 'text.md' : 'source.mdx'
-  // Cast to actual value.
+  // 类型转换获取实际值
   const compiledResult = /** @type {EvalResult | undefined} */ (evalResult)
   /** @type {ReactNode | undefined} */
   let display
@@ -320,7 +321,7 @@ function Playground() {
     } else {
       display = (
         <div>
-          <p>Could not compile code:</p>
+          <p>无法编译代码：</p>
           <DisplayError error={compiledResult.value} />
         </div>
       )
@@ -338,9 +339,8 @@ function Playground() {
                 jsx,
                 jsxs
               })}
-              {/* Trailing whitespace in a `textarea` is shown, but not in a `div`
-          with `white-space: pre-wrap`.
-          Add a `br` to make the last newline explicit. */}
+              {/* textarea中的尾部空格会显示，但在white-space: pre-wrap的div中不会
+          添加br元素使最后的换行显式化 */}
               {/\n[ \t]*$/.test(value) ? <br /> : undefined}
             </div>
             <textarea
@@ -356,7 +356,7 @@ function Playground() {
         </div>
         <div className="playground-controls">
           <fieldset>
-            <legend>Show</legend>
+            <legend>显示</legend>
             <label>
               <select
                 name="show"
@@ -364,8 +364,8 @@ function Playground() {
                   setShow(event.target.value)
                 }}
               >
-                <option value="result">evaluated result</option>
-                <option value="code">compiled code</option>
+                <option value="result">执行结果</option>
+                <option value="code">编译代码</option>
                 <option value="mdast">mdast (markdown)</option>
                 <option value="hast">hast (html)</option>
                 <option value="esast">esast (javascript)</option>
@@ -373,7 +373,7 @@ function Playground() {
             </label>
           </fieldset>
           <fieldset>
-            <legend>Plugin</legend>
+            <legend>插件</legend>
             <label>
               <input
                 type="checkbox"
@@ -383,7 +383,7 @@ function Playground() {
                   setDirective(!directive)
                 }}
               />{' '}
-              use{' '}
+              使用{' '}
               <a href="https://github.com/remarkjs/remark-directive">
                 <code>remark-directive</code>
               </a>
@@ -397,7 +397,7 @@ function Playground() {
                   setFrontmatter(!frontmatter)
                 }}
               />{' '}
-              use{' '}
+              使用{' '}
               <a href="https://github.com/remarkjs/remark-frontmatter">
                 <code>remark-frontmatter</code>
               </a>
@@ -411,7 +411,7 @@ function Playground() {
                   setGfm(!gfm)
                 }}
               />{' '}
-              use{' '}
+              使用{' '}
               <a href="https://github.com/remarkjs/remark-gfm">
                 <code>remark-gfm</code>
               </a>
@@ -425,7 +425,7 @@ function Playground() {
                   setMath(!math)
                 }}
               />{' '}
-              use{' '}
+              使用{' '}
               <a href="https://github.com/remarkjs/remark-math">
                 <code>remark-math</code>
               </a>
@@ -439,14 +439,14 @@ function Playground() {
                   setRaw(!raw)
                 }}
               />{' '}
-              use{' '}
+              使用{' '}
               <a href="https://github.com/rehypejs/rehype-raw">
                 <code>rehype-raw</code>
               </a>
             </label>
           </fieldset>
           <fieldset>
-            <legend>Input format</legend>
+            <legend>输入格式</legend>
             <label>
               <input
                 type="radio"
@@ -472,7 +472,7 @@ function Playground() {
           </fieldset>
 
           <fieldset disabled={show === 'result'}>
-            <legend>Output format</legend>
+            <legend>输出格式</legend>
             <label>
               <input
                 type="radio"
@@ -482,7 +482,7 @@ function Playground() {
                   setOutputFormatFunctionBody(true)
                 }}
               />{' '}
-              function body (
+              函数体 (
               <code>outputFormat: &apos;function-body&apos;</code>)
             </label>
             <label>
@@ -494,12 +494,12 @@ function Playground() {
                   setOutputFormatFunctionBody(false)
                 }}
               />{' '}
-              program (<code>outputFormat: &apos;program&apos;</code>)
+              程序 (<code>outputFormat: &apos;program&apos;</code>)
             </label>
           </fieldset>
 
           <fieldset disabled={show === 'result'}>
-            <legend>Development</legend>
+            <legend>开发模式</legend>
             <label>
               <input
                 type="radio"
@@ -509,7 +509,7 @@ function Playground() {
                   setDevelopment(true)
                 }}
               />{' '}
-              generate for development (<code>development: true</code>)
+              开发环境 (<code>development: true</code>)
             </label>
             <label>
               <input
@@ -520,7 +520,7 @@ function Playground() {
                   setDevelopment(false)
                 }}
               />{' '}
-              generate for production (<code>development: false</code>)
+              生产环境 (<code>development: false</code>)
             </label>
           </fieldset>
 
@@ -535,7 +535,7 @@ function Playground() {
                   setGenerateJsx(true)
                 }}
               />{' '}
-              keep JSX (<code>jsx: true</code>)
+              保留JSX (<code>jsx: true</code>)
             </label>
             <label>
               <input
@@ -546,12 +546,12 @@ function Playground() {
                   setGenerateJsx(false)
                 }}
               />{' '}
-              compile JSX away (<code>jsx: false</code>)
+              编译JSX (<code>jsx: false</code>)
             </label>
           </fieldset>
 
           <fieldset disabled={show === 'result' || show === 'code'}>
-            <legend>Tree</legend>
+            <legend>语法树</legend>
             <label>
               <input
                 type="checkbox"
@@ -561,7 +561,7 @@ function Playground() {
                   setPositions(!positions)
                 }}
               />{' '}
-              show <code>position</code> in tree
+              显示树中的<code>position</code>属性
             </label>
           </fieldset>
         </div>
@@ -574,19 +574,19 @@ function Playground() {
 /**
  *
  * @param {Readonly<FallbackProps>} properties
- *   Properties.
+ *   属性集
  * @returns {ReactNode}
- *   Element.
+ *   元素
  */
 function ErrorFallback(properties) {
   // type-coverage:ignore-next-line
   const error = /** @type {Error} */ (properties.error)
   return (
     <div role="alert">
-      <p>Something went wrong:</p>
+      <p>出错了：</p>
       <DisplayError error={error} />
       <button type="button" onClick={properties.resetErrorBoundary}>
-        Try again
+        重试
       </button>
     </div>
   )
@@ -594,9 +594,9 @@ function ErrorFallback(properties) {
 
 /**
  * @param {DisplayProperties} properties
- *   Properties.
+ *   属性集
  * @returns {ReactNode}
- *   Element.
+ *   元素
  */
 function DisplayError(properties) {
   return (
@@ -614,9 +614,9 @@ function DisplayError(properties) {
 
 /**
  * @param {HastRoot | MdastRoot} node
- *   mdast or hast root.
+ *   mdast或hast根节点
  * @returns {undefined}
- *   Nothing.
+ *   无返回值
  */
 function cleanUnistTree(node) {
   removePosition(node, {force: true})
@@ -625,9 +625,9 @@ function cleanUnistTree(node) {
 
 /**
  * @param {HastNodes | MdastNodes | MdxJsxAttribute | MdxJsxAttributeValueExpression | MdxJsxExpressionAttribute} node
- *   Node.
+ *   节点
  * @returns {undefined}
- *   Nothing.
+ *   无返回值
  */
 function cleanUnistNode(node) {
   if (
@@ -657,9 +657,9 @@ function cleanUnistNode(node) {
 
 /**
  * @param {EstreeNode} node
- *   estree node.
+ *   estree节点
  * @returns {undefined}
- *   Nothing.
+ *   无返回值
  */
 function removeFromEstree(node) {
   delete node.loc
@@ -667,3 +667,4 @@ function removeFromEstree(node) {
   delete node.end
   delete node.range
 }
+```

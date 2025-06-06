@@ -5,11 +5,11 @@
 
 /**
  * @typedef Properties
- *   Properties.
+ *   属性类型定义。
  * @property {string} name
- *   Name.
+ *   名称。
  * @property {Readonly<Item>} navigationTree
- *   Navigation tree.
+ *   导航树结构。
  */
 
 import React from 'react'
@@ -26,29 +26,29 @@ export function NavigationSiteSkip() {
       id="start-of-content"
       className="skip-to-navigation"
     >
-      Skip to navigation
+      跳转到导航
     </a>
   )
 }
 
 /**
  * @param {Readonly<Properties>} properties
- *   Properties.
+ *   属性参数。
  * @returns {ReactNode}
- *   Element.
+ *   返回的React元素。
  */
 export function NavigationSite(properties) {
   const {name, navigationTree} = properties
 
   return (
-    <nav className="navigation" aria-label="Site navigation">
-      <div id="banner">Ceasefire now! 🕊️</div>
+    <nav className="navigation" aria-label="站点导航">
+      <div id="banner">立即停火！🕊️</div>
       <a
         href="#start-of-content"
         id="start-of-navigation"
         className="skip-to-content"
       >
-        Skip to content
+        跳转到内容
       </a>
       <div className="navigation-primary">
         <a href="/" aria-current={name === '/' ? 'page' : undefined}>

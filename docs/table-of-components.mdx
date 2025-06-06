@@ -1,39 +1,34 @@
 export const info = {
   author: [
-    {github: 'johno', name: 'John Otander'},
-    {github: 'wooorm', name: 'Titus Wormer'}
+    {github: 'johno', name: '约翰·奥坦德'},
+    {github: 'wooorm', name: '泰特斯·沃默'}
   ],
   modified: new Date('2025-01-27'),
   published: new Date('2020-03-11')
 }
 export const navSortSelf = 4
 
-# Components
+# 组件
 
-A great thing about MDX is that you can write markdown and specify a component
-to be used instead of an HTML element. {/* more */}
-The following table lists those HTML elements that can be overwritten,
-the needed markdown,
-and what the normal JSX equivalent would be.
-But, taking the first row for `a` as an example, you can replace that hyperlink
-with `<FancyLink>` by doing:
+MDX 的一大优势在于，您既可以编写 Markdown 语法，又能指定用自定义组件替代 HTML 元素。{/* more */}
+下表列出了可被覆盖的 HTML 元素、对应的 Markdown 语法以及常规 JSX 等价写法。以首行的 `a` 元素为例，您可以通过以下方式将超链接替换为 `<FancyLink>`：
 
 ```tsx
-import Readme from './readme.md' // Assumes an integration is used to compile MDX -> JS.
+import Readme from './readme.md' // 假设已使用集成工具将 MDX 编译为 JS
 import {FancyLink} from './components/fancy-link.js'
 
 <Readme components={{a: FancyLink}} />
 ```
 
-More information on how to use markdown can be found in [CommonMark][].
+更多 Markdown 使用指南请参阅 [CommonMark][]。
 
 <div className="full-bleed">
   <table>
     <thead>
       <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Markdown syntax</th>
-        <th scope="col">Equivalent JSX</th>
+        <th scope="col">元素名</th>
+        <th scope="col">Markdown 语法</th>
+        <th scope="col">等效 JSX</th>
       </tr>
     </thead>
 
@@ -43,14 +38,14 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          [MDX](https://mdxjs.com "title")
+          [MDX](https://mdxjs.com "标题")
           ```
         </td>
 
         <td>
           ```tsx chrome=no
           <>
-            <p><a href="https://mdxjs.com" title="title">MDX</a></p>
+            <p><a href="https://mdxjs.com" title="标题">MDX</a></p>
           </>
           ```
         </td>
@@ -61,7 +56,7 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          > A greater than…
+          > 大于号开头…
           ```
         </td>
 
@@ -69,7 +64,7 @@ More information on how to use markdown can be found in [CommonMark][].
           ```tsx chrome=no
           <>
             <blockquote>
-              <p>A greater than…</p>
+              <p>大于号开头…</p>
             </blockquote>
           </>
           ```
@@ -81,8 +76,8 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          A backslash\
-          before a line break…
+          反斜杠\
+          在换行符前…
           ```
         </td>
 
@@ -90,8 +85,8 @@ More information on how to use markdown can be found in [CommonMark][].
           ```tsx chrome=no
           <>
             <p>
-              A backslash<br />
-              before a line break…
+              反斜杠<br />
+              在换行符前…
             </p>
           </>
           ```
@@ -103,10 +98,10 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ````mdx chrome=no
-          Some `backticks` for inline.
+          行内代码使用`反引号`。
 
           ```javascript
-          backtick.fences('for blocks')
+          代码块使用反引号围栏('for blocks')
           ```
           ````
         </td>
@@ -115,9 +110,9 @@ More information on how to use markdown can be found in [CommonMark][].
           ```tsx chrome=no
           <>
             <p>
-              Some <code>backticks</code> for inline.
+              行内代码使用 <code>反引号</code>。
             </p>
-            <pre><code className="language-javascript">backtick.fences('for blocks')
+            <pre><code className="language-javascript">代码块使用反引号围栏('for blocks')
             </code></pre>
           </>
           ```
@@ -129,14 +124,14 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          Some *asterisks* for emphasis.
+          用*星号*表示强调。
           ```
         </td>
 
         <td>
           ```tsx chrome=no
           <>
-            <p>Some <em>asterisks</em> for emphasis.</p>
+            <p>用 <em>星号</em> 表示强调。</p>
           </>
           ```
         </td>
@@ -147,14 +142,14 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          # One number sign…
+          # 一级标题…
           ```
         </td>
 
         <td>
           ```tsx chrome=no
           <>
-            <h1>One number sign…</h1>
+            <h1>一级标题…</h1>
           </>
           ```
         </td>
@@ -165,14 +160,14 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          ## Two number signs…
+          ## 二级标题…
           ```
         </td>
 
         <td>
           ```tsx chrome=no
           <>
-            <h2>Two number signs…</h2>
+            <h2>二级标题…</h2>
           </>
           ```
         </td>
@@ -183,14 +178,14 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          ### Three number signs…
+          ### 三级标题…
           ```
         </td>
 
         <td>
           ```tsx chrome=no
           <>
-            <h3>Three number signs…</h3>
+            <h3>三级标题…</h3>
           </>
           ```
         </td>
@@ -201,14 +196,14 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          #### Four number signs…
+          #### 四级标题…
           ```
         </td>
 
         <td>
           ```tsx chrome=no
           <>
-            <h4>Four number signs…</h4>
+            <h4>四级标题…</h4>
           </>
           ```
         </td>
@@ -219,14 +214,14 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          ##### Five number signs…
+          ##### 五级标题…
           ```
         </td>
 
         <td>
           ```tsx chrome=no
           <>
-            <h5>Five number signs…</h5>
+            <h5>五级标题…</h5>
           </>
           ```
         </td>
@@ -237,14 +232,14 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          ###### Six number signs…
+          ###### 六级标题…
           ```
         </td>
 
         <td>
           ```tsx chrome=no
           <>
-            <h6>Six number signs…</h6>
+            <h6>六级标题…</h6>
           </>
           ```
         </td>
@@ -255,7 +250,7 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          Three asterisks for a thematic break:
+          三个星号表示分隔线：
 
           ***
           ```
@@ -264,7 +259,7 @@ More information on how to use markdown can be found in [CommonMark][].
         <td>
           ```tsx chrome=no
           <>
-            <p>Three asterisks for a thematic break:</p>
+            <p>三个星号表示分隔线：</p>
             <hr />
           </>
           ```
@@ -276,14 +271,14 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          ![Alt text](/logo.png "title")
+          ![替代文本](/logo.png "标题")
           ```
         </td>
 
         <td>
           ```tsx chrome=no
           <>
-            <p><img src="/logo.png" alt="Alt text" title="title" /></p>
+            <p><img src="/logo.png" alt="替代文本" title="标题" /></p>
           </>
           ```
         </td>
@@ -294,9 +289,9 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          * asterisks for unordered items
+          * 星号表示无序列表项
 
-          1. decimals and a dot for ordered items
+          1. 数字加点表示有序列表项
           ```
         </td>
 
@@ -304,10 +299,10 @@ More information on how to use markdown can be found in [CommonMark][].
           ```tsx chrome=no
           <>
             <ul>
-              <li>asterisks for unordered items</li>
+              <li>星号表示无序列表项</li>
             </ul>
             <ol>
-              <li>decimals and a dot for ordered items</li>
+              <li>数字加点表示有序列表项</li>
             </ol>
           </>
           ```
@@ -319,7 +314,7 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          1. decimals and a dot for ordered
+          1. 数字加点表示有序列表
           ```
         </td>
 
@@ -327,7 +322,7 @@ More information on how to use markdown can be found in [CommonMark][].
           ```tsx chrome=no
           <>
             <ol>
-              <li>decimals and a dot for ordered</li>
+              <li>数字加点表示有序列表</li>
             </ol>
           </>
           ```
@@ -339,14 +334,14 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          Just some text…
+          普通文本段落…
           ```
         </td>
 
         <td>
           ```tsx chrome=no
           <>
-            <p>Just some text…</p>
+            <p>普通文本段落…</p>
           </>
           ```
         </td>
@@ -358,7 +353,7 @@ More information on how to use markdown can be found in [CommonMark][].
         <td>
           ````mdx chrome=no
           ```javascript
-          backtick.fences('for blocks')
+          反引号围栏('代码块')
           ```
           ````
         </td>
@@ -366,7 +361,7 @@ More information on how to use markdown can be found in [CommonMark][].
         <td>
           ```tsx chrome=no
           <>
-            <pre><code className="language-javascript">backtick.fences('for blocks')
+            <pre><code className="language-javascript">反引号围栏('代码块')
             </code></pre>
           </>
           ```
@@ -378,14 +373,14 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          Two **asterisks** for strong.
+          双**星号**表示加粗。
           ```
         </td>
 
         <td>
           ```tsx chrome=no
           <>
-            <p>Two <strong>asterisks</strong> for strong.</p>
+            <p>双 <strong>星号</strong> 表示加粗。</p>
           </>
           ```
         </td>
@@ -396,7 +391,7 @@ More information on how to use markdown can be found in [CommonMark][].
 
         <td>
           ```mdx chrome=no
-          * asterisks for unordered
+          * 星号表示无序列表
           ```
         </td>
 
@@ -404,7 +399,7 @@ More information on how to use markdown can be found in [CommonMark][].
           ```tsx chrome=no
           <>
             <ul>
-              <li>asterisks for unordered</li>
+              <li>星号表示无序列表</li>
             </ul>
           </>
           ```
@@ -414,17 +409,9 @@ More information on how to use markdown can be found in [CommonMark][].
   </table>
 </div>
 
-The components you can overwrite use their standard HTML names.
-Normally, in markdown, those names are: `a`, `blockquote`, `br`, `code`, `em`,
-`h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `hr`, `img`, `li`, `ol`, `p`, `pre`,
-`strong`, and `ul`.
-With [`remark-gfm`][gfm] ([see guide][guide-gfm]), you can also use: `del`,
-`input`, `section`, `sup`, `table`, `tbody`, `td`, `th`, `thead`, and `tr`.
-Other remark plugins that add support for new constructs and advertise that they
-work with rehype, will also work with MDX.
+可覆盖的组件使用标准 HTML 元素名称。在 Markdown 中通常包括：`a`、`blockquote`、`br`、`code`、`em`、`h1`-`h6`、`hr`、`img`、`li`、`ol`、`p`、`pre`、`strong` 和 `ul`。通过 [`remark-gfm`][gfm]（[参见指南][guide-gfm]）还可支持：`del`、`input`、`section`、`sup`、`table`、`tbody`、`td`、`th`、`thead` 和 `tr`。其他声明支持 rehype 的 remark 插件所添加的新结构，同样适用于 MDX。
 
-More information on components is available in
-[¶ Components in § Using MDX][components].
+更多组件相关信息请参阅 [¶ 组件 in § 使用 MDX][components]。
 
 [commonmark]: https://spec.commonmark.org/current/
 

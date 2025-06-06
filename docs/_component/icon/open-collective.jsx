@@ -1,3 +1,4 @@
+```markdown
 import React from 'react'
 
 export function OpenCollective() {
@@ -22,3 +23,4 @@ export function OpenCollective() {
     </svg>
   )
 }
+```

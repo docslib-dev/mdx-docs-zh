@@ -9,95 +9,81 @@ export const info = {
 }
 export const navSortSelf = 4
 
-# About
+# 关于
 
-This article explains in short how MDX came to be and why it exists.
-It also gives thanks to the people who’ve helped make it and inspired it.
+本文简要阐述了MDX的诞生背景及其存在意义，
+并向参与构建和启发这一项目的人们致谢。
 
 {/* more */}
 
-## What is MDX?
+## 什么是MDX？
 
-MDX is the combination of markdown with JSX.
-See [§ What is MDX?][what] for more info.
+MDX是Markdown与JSX的结合体。
+更多信息请参阅[§ 什么是MDX？][what]。
 
-## Why MDX?
+## 为什么选择MDX？
 
-Markdown does not have a syntax for custom components.
-MDX solves this.
+Markdown缺乏自定义组件的语法，
+而MDX解决了这个问题。
 
-There are many languages objectively better than markdown, however, markdown is
-great because:
+虽然有许多语言在客观上优于markdown，
+但markdown的独特优势在于：
 
-* It looks like what it means and is relatively easy to read
-* Although images are [confusing][], most stuff is relatively simple to write
-* It’s loose and ambiguous: it may not work but you won’t get an error (great
-  for someone posting a comment to a forum if they forgot an asterisk)
+* 直观呈现内容含义，具备良好的可读性
+* 除[图片语法存在混淆][confusing]外，大多数场景下书写简便
+* 宽松且容错性强：即使忘记书写星号，也不会报错（非常适合论坛评论场景）
 
-Markdown *does* have a way to extend it, HTML, but that has drawbacks:
+Markdown*确实*提供了一种扩展方式——HTML，但存在以下局限：
 
-* HTML in markdown is naïve, how it’s parsed sometimes doesn’t make sense
-* HTML is unsafe by default, so it’s sometimes (partially) unsupported
-* HTML and markdown don’t mix well, resulting in confusing rules such as
-  blank lines or `markdown="1"` attributes
-* HTML is coupled with browsers, markdown is useful for other things too
+* HTML在markdown中的解析逻辑不够智能
+* HTML默认存在安全隐患，因此常被（部分）禁用
+* HTML与markdown混合使用时规则混乱，例如空行或`markdown="1"`属性
+* HTML与浏览器强耦合，而markdown的适用场景更广泛
 
-The frontend world has an alternative to HTML: JSX.
-JSX is great, amongst other things, because:
+前端领域提供了HTML的替代方案：JSX。
+JSX的核心优势包括：
 
-* It has a relatively familiar syntax (like XML)
-* It’s agnostic to semantics and intended for compilers (can have any
-  domain-specific meaning)
-* It’s strict and unambiguous (great if an author forgot a slash somewhere, as
-  they’ll get an error early, instead of a book going to print with broken
-  stuff in it)
+* 采用类XML的熟悉语法
+* 语义无关性，专为编译器设计（可承载任意领域特定含义）
+* 严格且无歧义（当作者遗漏斜杠时能及时报错，避免印刷书籍中出现错误内容）
 
-## Who governs MDX?
+## MDX由谁主导？
 
-The project is governed by the
-[unified collective][governance].
+该项目由[unified collective][governance]组织管理。
 
-## Who created MDX?
+## MDX的创建者是谁？
 
-The idea of combining [markdown][commonmark], [JavaScript][], and [JSX][] was a
-collaborative effort by
-[Guillermo Rauch][mdx-rauchg] (**[@rauchg][rauchg]**),
-[James K. Nelson][mdx-jamesknelson] (**[@jamesknelson][jamesknelson]**),
-[John Otander][mdx-johno] (**[@johno][johno]**),
-Tim Neutkens (**[@timneutkens][timneutkens]**),
-Brent Jackson (**[@jxnblk][jxnblk]**),
-Jessica Stokes (**[@ticky][ticky]**), and more.
+结合[markdown][commonmark]、[JavaScript][]和[JSX][]的构想源自多位贡献者的协作：
+[Guillermo Rauch][mdx-rauchg]（**[@rauchg][rauchg]**）、
+[James K. Nelson][mdx-jamesknelson]（**[@jamesknelson][jamesknelson]**）、
+[John Otander][mdx-johno]（**[@johno][johno]**）、
+Tim Neutkens（**[@timneutkens][timneutkens]**）、
+Brent Jackson（**[@jxnblk][jxnblk]**）、
+Jessica Stokes（**[@ticky][ticky]**）等人。
 
-While everyone above was key to MDX, we want to stress the involvement of
-[John Otander][mdx-johno] (**[@johno][johno]**).
-John wrote most of the code for the first alpha and later stable version 1 of
-this project!
+特别需要强调[John Otander][mdx-johno]（**[@johno][johno]**）的贡献，
+他编写了首个alpha版本及后续稳定版v1的大部分代码！
 
-## Who designed the logo?
+## 徽标设计者是谁？
 
-[Logo designs][design] were created by [Evil Rabbit][] of [Vercel][].
+[徽标设计][design]由Vercel公司的[Evil Rabbit][]团队完成。
 
-## What projects inspired MDX?
+## MDX受哪些项目启发？
 
-The following projects, languages, and articles helped shape MDX either in
-implementation or inspiration.
+以下项目、语言和文章在实现或理念层面影响了MDX的发展。
 
-The [markdown][] and [JSX][] languages inspired MDX.
-Markdown was [created by John Gruber][markdown] (**[@gruber][gruber]**).
-[CommonMark][], the most popular markdown variant, by John McFarlane
-(**[@jgm][jgm]**) et al.
-JSX was created by Sebastian Markbåge (**[@sebmarkbage][sebmarkbage]**) et
-al. at Facebook, Inc.
+[JSX][]和[markdown][]语言是MDX的灵感来源。
+Markdown由John Gruber（**[@gruber][gruber]**）创建，
+而最流行的变体[CommonMark][]由John McFarlane（**[@jgm][jgm]**）等人开发。
+JSX则由Facebook公司的Sebastian Markbåge（**[@sebmarkbage][sebmarkbage]**）等人设计。
 
-The `@mdx-js/*` projects currently make heavy use of [unified][] (specifically
-[micromark][], [remark][] and [rehype][]) and [Acorn][].
-unified, remark, rehype, and related tools were created by Titus Wormer
-(**[@wooorm][wooorm]**) et al.
-Acorn by Marijn Haverbeke (**[@marijnh][marijnh]**) et al.
+当前`@mdx-js/*`项目深度依赖[unified][]（特别是[micromark][]、[remark][]和[rehype][]）以及[Acorn][]。
+unified、remark、rehype及相关工具由Titus Wormer（**[@wooorm][wooorm]**）等人开发，
+Acorn由Marijn Haverbeke（**[@marijnh][marijnh]**）等人创建。
 
-The following projects inspired `@mdx-js/*` originally:
+以下项目对`@mdx-js/*`的初期发展产生重要影响：
 
-{/* Note: please keep the original project names intact: */}
+{/* 注意：请保留原始项目名称不变 */}
 
 * [`jamesknelson/mdxc`](https://github.com/frontarm/mdx-util)
 * [`ticky/markdown-component-loader`](https://github.com/ticky/markdown-component-loader)
@@ -106,10 +92,10 @@ The following projects inspired `@mdx-js/*` originally:
 * [`mapbox/remark-react`](https://github.com/remarkjs/remark-react)
 * [`rx-ts/eslint-mdx`](https://github.com/mdx-js/eslint-mdx)
 
-The following articles inspired `@mdx-js/*` originally:
+以下文章对`@mdx-js/*`的初期发展产生重要影响：
 
 * [IA Markdown Content Blocks](https://github.com/iainc/Markdown-Content-Blocks)
-* [Idyll: Markup language for interactive documents](https://idyll-lang.org)
+* [Idyll: 交互式文档标记语言](https://idyll-lang.org)
 
 [acorn]: https://github.com/acornjs/acorn
 
