@@ -1,4 +1,3 @@
-```markdown
 // 增强 vfile 数据：
 /// <reference types="rehype-infer-description-meta" />
 
@@ -151,4 +150,3 @@ export function NavigationItem(properties) {
     </li>
   )
 }
-```

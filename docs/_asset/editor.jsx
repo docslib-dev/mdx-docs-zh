@@ -1,4 +1,3 @@
-```markdown
 /* @jsxRuntime automatic */
 /* @jsxImportSource react */
 
@@ -667,4 +666,3 @@ function removeFromEstree(node) {
   delete node.end
   delete node.range
 }
-```
